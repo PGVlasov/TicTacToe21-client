@@ -1,0 +1,47 @@
+.Training {
+  display: inline-block;
+  justify-content: center;
+  flex-grow: 1;
+  width: 100%;
+  background: linear-gradient(270deg, #cef2fa 0%, #59bfef 100%);
+  text-align: center;
+}
+
+.Training h1 {
+  color: rgb(112, 29, 48);
+  text-align: center;
+  margin-top: 1px;
+  margin-bottom: 2px;
+}
+
+.Training h4 {
+  color: rgb(112, 29, 48);
+  text-align: center;
+  margin-top: 1px;
+  margin-bottom: 2px;
+}
+
+.overlay {
+  width: auto;
+  height: auto;
+}
+
+.Training > div {
+  display: flex;
+  justify-content: center;
+  /* flex-grow: 1; */
+  width: 100%;
+  height: 400px;
+  background: linear-gradient(270deg, #cef2fa 0%, #59bfef 100%);
+}
+
+.Training > div > div {
+  display: table-row;
+  margin: 20px;
+  justify-content: space-around;
+  width: 100%;
+  padding: 20px 20px;
+  max-width: 600px;
+  padding: 0 20px;
+  color: rgb(112, 29, 48);
+}

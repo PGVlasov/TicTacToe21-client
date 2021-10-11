@@ -1,0 +1,35 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  background: linear-gradient(270deg, #faebce 0%, #da4a07 100%);
+}
+
+.navbarHeader {
+  font-size: 30px;
+  color: rgb(195, 225, 230);
+  background: rgb(233, 184, 162);
+  align-items: center;
+  justify-content: center;
+}
+
+.ul {
+  display: flex;
+  justify-content: space-between;
+  width: 300px;
+  padding: 5px;
+  margin: 5px;
+  text-decoration: none;
+}
+
+.li {
+  display: flex;
+  justify-content: space-between;
+  text-decoration: none;
+  color: #faebce;
+}
+
+.NavLink {
+  text-decoration: none;
+  color: #292724;
+  font-size: large;
+}

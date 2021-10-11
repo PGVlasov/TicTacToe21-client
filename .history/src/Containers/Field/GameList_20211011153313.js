@@ -5,6 +5,10 @@ import Links from "../../components/UI/List/Links.js";
 import useState from "react";
 
 let links = [];
+// const links = new Array(5).fill("").map((_, i) => ({
+//   id: i,
+//   title: `${(+new Date()).toString(16)}`,
+// }));
 
 export default class GameList extends Component {
   createGame = () => {

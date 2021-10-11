@@ -8,6 +8,28 @@ import Players from "../../../Containers/Field/Player";
 
 export default class Uploader extends Component {
   addAvatar(event) {
+    // const fdata = new FormData();
+    // console.log(img);
+    // fdata.append("image", this.state.image);
+    // console.log(fdata);
+    // try {
+    //   const config = { headers: { "Content-Type": false } };
+    //   axios({
+    //     method: "post",
+    //     url: "/avatar",
+    //     data: fdata,
+    //     headers: { "Content-Type": "multipart/form-data" },
+    //   })
+    //     .then(function (response) {
+    //       console.log(response);
+    //     })
+    //     .catch(function (response) {
+    //       console.log(response);
+    //     });
+    // } catch (error) {
+    //   console.log(error.response.data);
+    // }
+
     document.location = "/player";
   }
   state = {

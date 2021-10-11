@@ -124,7 +124,6 @@ class Players extends Component {
       name: name.value,
       age: age.value,
       adress: adress.value,
-      userId: localStorage.getItem("localID"),
     };
 
     console.log(data);

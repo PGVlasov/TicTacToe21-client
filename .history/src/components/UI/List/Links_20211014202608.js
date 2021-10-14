@@ -3,6 +3,10 @@ import classes from "./Links.module.css";
 import Button from "../Button/Button";
 
 export default class Links extends Component {
+  constructor(props) {
+    super(props);
+    this.linkRef = React.createRef();
+  }
   state = {
     links: [],
     linkLength: 0,
@@ -14,7 +18,9 @@ export default class Links extends Component {
       .then((links) => this.setState({ links }));
   };
 
-  testValueFunction = (event) => {};
+  testValueFunction = (event) => {
+    //this.linkRef = React.createRef();
+  };
 
   joinGame = async (event) => {
     console.log("CLICED", event.target.id);
@@ -33,31 +39,31 @@ export default class Links extends Component {
       body: JSON.stringify(string),
     }).then(console.log("cliced"));
 
-    this.refreshGameList();
+    // this.refreshGameList();
   };
 
-  deleteGame = async (event) => {
-    const aToDelete =
-      event.target.previousElementSibling.previousElementSibling;
-    let data = {
-      id: aToDelete.id,
-    };
-    await fetch("/createGame/delete/", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(data),
-    }).then(console.log("delited"));
+  //   deleteGame = async (event) => {
+  //     const aToDelete =
+  //       event.target.previousElementSibling.previousElementSibling;
+  //     let data = {
+  //       id: aToDelete.id,
+  //     };
+  //     await fetch("/createGame/delete/", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-type": "application/json",
+  //       },
+  //       body: JSON.stringify(data),
+  //     }).then(console.log("delited"));
 
-    this.refreshGameList();
-  };
+  //     //this.refreshGameList();
+  //   };
 
   render() {
     // setInterval(() => {
     //   this.refreshGameList();
     // }, 5000);
-    //console.log(this.state.links);
+    console.log(this.state.links);
     return (
       <div>
         <Button type="primary" onClick={this.refreshGameList}>

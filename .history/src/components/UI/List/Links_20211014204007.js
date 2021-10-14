@@ -33,7 +33,7 @@ export default class Links extends Component {
       body: JSON.stringify(string),
     }).then(console.log("cliced"));
 
-    this.refreshGameList();
+    // this.refreshGameList();
   };
 
   deleteGame = async (event) => {
@@ -50,7 +50,7 @@ export default class Links extends Component {
       body: JSON.stringify(data),
     }).then(console.log("delited"));
 
-    this.refreshGameList();
+    //this.refreshGameList();
   };
 
   render() {
@@ -64,7 +64,7 @@ export default class Links extends Component {
           Обновить список игр
         </Button>
         <hr />
-        {this.state.links.map((link) => (
+        {/* {this.state.links.map((link) => (
           <ul className={classes.li} key={Math.random()}>
             <li ref={this.linkRef}>
               <a
@@ -92,7 +92,7 @@ export default class Links extends Component {
               </Button>
             </li>
           </ul>
-        ))}
+        ))} */}
       </div>
     );
   }

@@ -16,13 +16,13 @@ export default class GameList extends Component {
 
     console.log(links);
 
-    await fetch("/createGame", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(links),
-    }).then(console.log("sended"));
+    // await fetch("/createGame", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-type": "application/json",
+    //   },
+    //   body: JSON.stringify(links),
+    // }).then(console.log("sended"));
   };
 
   render() {

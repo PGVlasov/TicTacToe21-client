@@ -33,7 +33,7 @@ export default class Links extends Component {
       body: JSON.stringify(string),
     }).then(console.log("cliced"));
 
-    this.refreshGameList();
+    // this.refreshGameList();
   };
 
   deleteGame = async (event) => {

@@ -3,20 +3,29 @@ import classes from "./Links.module.css";
 import Button from "../Button/Button";
 
 export default class Links extends Component {
+  constructor(props) {
+    super(props);
+    this.linkRef = React.createRef();
+  }
   state = {
     links: [],
     linkLength: 0,
   };
 
-  refreshGameList = async () => {
-    await fetch("/createGame")
+  refreshGameList = (state) => {
+    fetch("/createGame")
       .then((res) => res.json())
-      .then((links) => this.setState({ links }));
+      .then(console.log("got something"))
+      .then((links) => this.setState({ links }))
+      .then((links) => console.log({ links }));
   };
 
-  testValueFunction = (event) => {};
+  testValueFunction = (event) => {
+    //this.linkRef = React.createRef();
+    console.log("ATTENTION", event.target.closest("a"));
+  };
 
-  joinGame = async (event) => {
+  joinGame = (event) => {
     console.log("CLICED", event.target.id);
     let string = {
       cliced: Number(event.target.elementTiming) + 1,
@@ -25,39 +34,34 @@ export default class Links extends Component {
 
     alert(event.target.elementTiming);
 
-    await fetch("/createGame/cliced", {
+    fetch("/createGame/cliced", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
       body: JSON.stringify(string),
     }).then(console.log("cliced"));
-
-    this.refreshGameList();
   };
 
-  deleteGame = async (event) => {
-    const aToDelete =
-      event.target.previousElementSibling.previousElementSibling;
-    let data = {
-      id: aToDelete.id,
+  deleteGame = () => {
+    let string = {
+      url: "this.link.url",
     };
-    await fetch("/createGame/delete/", {
+    console.log("URLLLLLLLLLL", "this.link.url");
+    fetch("/createGame/delete/", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(string),
     }).then(console.log("delited"));
 
     this.refreshGameList();
   };
 
   render() {
-    // setInterval(() => {
-    //   this.refreshGameList();
-    // }, 5000);
-    //console.log(this.state.links);
+    console.log(this.state.links);
+    // console.log(this.linkRef.current);
     return (
       <div>
         <Button type="primary" onClick={this.refreshGameList}>
@@ -86,7 +90,7 @@ export default class Links extends Component {
                 className={classes.button}
                 type="error"
                 id={link._id}
-                onClick={this.deleteGame}
+                onClick={this.testValueFunction}
               >
                 &times;
               </Button>

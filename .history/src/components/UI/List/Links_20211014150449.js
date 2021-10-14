@@ -3,18 +3,24 @@ import classes from "./Links.module.css";
 import Button from "../Button/Button";
 
 export default class Links extends Component {
+  constructor(props) {
+    super(props);
+    this.linkRef = React.createRef();
+  }
   state = {
     links: [],
     linkLength: 0,
   };
 
-  refreshGameList = async () => {
-    await fetch("/createGame")
+  refreshGameList = (state) => {
+    fetch("/createGame")
       .then((res) => res.json())
       .then((links) => this.setState({ links }));
   };
 
-  testValueFunction = (event) => {};
+  testValueFunction = (event) => {
+    //this.linkRef = React.createRef();
+  };
 
   joinGame = async (event) => {
     console.log("CLICED", event.target.id);
@@ -57,7 +63,7 @@ export default class Links extends Component {
     // setInterval(() => {
     //   this.refreshGameList();
     // }, 5000);
-    //console.log(this.state.links);
+    console.log(this.state.links);
     return (
       <div>
         <Button type="primary" onClick={this.refreshGameList}>

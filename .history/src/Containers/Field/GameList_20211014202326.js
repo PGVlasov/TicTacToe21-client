@@ -16,7 +16,7 @@ export default class GameList extends Component {
 
     console.log(links);
 
-    await fetch("/createGame", {
+    fetch("/createGame", {
       method: "POST",
       headers: {
         "Content-type": "application/json",

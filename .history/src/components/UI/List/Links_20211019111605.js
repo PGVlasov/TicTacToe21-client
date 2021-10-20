@@ -22,14 +22,14 @@ export default class Links extends Component {
     console.log(this.link);
   };
 
-  joinGame = (event) => {
+  joinGame = async (event) => {
     console.log("CLICED", event.target.id);
     let string = {
       cliced: +1,
       id: event.target.id,
     };
 
-    fetch("/createGame/cliced", {
+    await fetch("/createGame/cliced", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -46,15 +46,15 @@ export default class Links extends Component {
     let data = {
       id: aToDelete.id,
     };
-    fetch("/createGame/delete/", {
+    await fetch("/createGame/delete/", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
       body: JSON.stringify(data),
-    });
+    }).then(console.log("delited"));
 
-    // this.refreshGameList();
+    this.refreshGameList();
   };
 
   render() {

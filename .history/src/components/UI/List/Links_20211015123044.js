@@ -8,28 +8,24 @@ export default class Links extends Component {
     linkLength: 0,
   };
 
-  refreshGameList = () => {
-    try {
-      fetch("/createGame")
-        .then((res) => res.json())
-        .then((links) => this.setState({ links }));
-    } catch (e) {
-      console.log(e);
-    }
+  refreshGameList = async () => {
+    await fetch("/createGame")
+      .then((res) => res.json())
+      .then((links) => this.setState({ links }));
   };
 
   testValueFunction = (link) => {
     console.log(this.link);
   };
 
-  joinGame = (event) => {
+  joinGame = async (event) => {
     console.log("CLICED", event.target.id);
     let string = {
-      cliced: +1,
+      cliced: Number(event.target.elementTiming) + 1,
       id: event.target.id,
     };
 
-    fetch("/createGame/cliced", {
+    await fetch("/createGame/cliced", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -40,30 +36,34 @@ export default class Links extends Component {
     this.refreshGameList();
   };
 
-  deleteGame = (event) => {
+  deleteGame = async (event) => {
     const aToDelete =
       event.target.previousElementSibling.previousElementSibling;
     let data = {
       id: aToDelete.id,
     };
-    fetch("/createGame/delete/", {
+    await fetch("/createGame/delete/", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
       body: JSON.stringify(data),
-    });
+    }).then(console.log("delited"));
 
-    // this.refreshGameList();
+    this.refreshGameList();
   };
 
   render() {
-    // try {
-    //   setInterval(() => {
-    //     this.refreshGameList();
-    //   }, 5000);
-    // } catch (e) {}
-
+    // setInterval(() => {
+    //   this.refreshGameList();
+    // }, 5000);
+    let arr = this.state.links;
+    console.log(arr);
+    arr.forEach((link) => {
+      if (link.cliced >= 2) {
+        this.testValueFunction(link.id);
+      }
+    });
     return (
       <div>
         <Button type="primary" onClick={this.refreshGameList}>
@@ -78,7 +78,7 @@ export default class Links extends Component {
                 className={classes.a}
                 onClick={this.joinGame}
                 id={link._id}
-                // elementTiming={link.cliced} // вот это место очень непонятное, я просто не знал какой property использовать у тега <a> для передачи NUMBER и использовал elementTiming
+                elementTiming={link.cliced} // вот это место очень непонятное, я просто не знал какой property использовать у тега <a> для передачи NUMBER и использовал elementTiming
               >
                 {"играть против:  " + link.creator}
               </a>

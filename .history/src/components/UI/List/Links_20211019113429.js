@@ -37,7 +37,7 @@ export default class Links extends Component {
       body: JSON.stringify(string),
     }).then(console.log("cliced"));
 
-    this.refreshGameList();
+    //this.refreshGameList();
   };
 
   deleteGame = (event) => {
@@ -52,9 +52,9 @@ export default class Links extends Component {
         "Content-type": "application/json",
       },
       body: JSON.stringify(data),
-    });
+    }).then(console.log("delited"));
 
-    // this.refreshGameList();
+    this.refreshGameList();
   };
 
   render() {

@@ -59,7 +59,7 @@ const Game = () => {
           break;
       }
     });
-  }, []);
+
 
   const onOtherPlayerMove = ({ x, y, step, board, hasWinner }) => {
     // console.log(this.msg.moveAvaible);

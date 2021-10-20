@@ -24,7 +24,7 @@ export default class GameList extends Component {
         "Content-type": "application/json",
       },
       body: JSON.stringify(links),
-    });
+    }).then(console.log("sended"));
   };
 
   render() {

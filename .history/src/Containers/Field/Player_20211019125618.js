@@ -216,14 +216,14 @@ class Players extends Component {
     console.log("216", this.state.users);
     console.log("PROPS USERNAME", this.props.userName);
     const userArr = this.state.users[0];
-    //Object.entries(userArr).map(([key, value]) => [key, value]);
+    let second = Object.entries(userArr).map(([key, value]) => [key, value]);
 
     for (var prop in userArr) {
       console.log("obj." + prop + " = " + userArr[prop]);
       //console.log("WWWWW", prop.name);
     }
 
-    console.log("State USERNAME", userArr);
+    console.log("State USERNAME", second.name);
     if (this.state.editButtomClicked) {
       return (
         <div className={classes.Player}>

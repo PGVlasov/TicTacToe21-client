@@ -223,7 +223,7 @@ class Players extends Component {
       //console.log("WWWWW", prop.name);
     }
 
-    console.log("State USERNAME", userArr);
+    console.log("State USERNAME", userArr.age);
     if (this.state.editButtomClicked) {
       return (
         <div className={classes.Player}>

@@ -28,6 +28,7 @@ export default class GameList extends Component {
   };
 
   render() {
+    console.log(ratingList);
     return (
       <div className={classes.GameList}>
         <h1>Создайте игру или присоеденитесь к существующей</h1>

@@ -59,7 +59,37 @@ const Game = () => {
           break;
       }
     });
+
+    setTimeout(() => {
+      //   ws.onMessage((event) => {
+      //     let msg = JSON.parse(event.data);
+      //     console.log("--->", msg);
+      //     switch (msg.type) {
+      //       //   case "connection":
+      //       //     // console.log(`пользователь ${msg.userName} подключился`);
+      //       //     break;
+      //       case "PLAYER_MOVE":
+      //         console.log("RECEIVED_MSG", msg);
+      //         //   handleMove(msg.x, msg.y, msg.step);
+      //         // moveHandler(msg);
+      //         break;
+      //       default:
+      //         break;
+      //     }
+      //   });
+    }, 1000);
+
+    // setTimeout(() => {
+    //   ws.send("azaza", { "asdasd": 123 });
+    // }, 2000);
   }, []);
+
+  //   const setUserName = () => {
+  //     gameState.userName = usernameRef.current.value;
+  //     // console.log("username:", gameState.userName);
+  //     //ws.onOpen();
+  //     setModal(false);
+  //   };
 
   const onOtherPlayerMove = ({ x, y, step, board, hasWinner }) => {
     // console.log(this.msg.moveAvaible);

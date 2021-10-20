@@ -52,9 +52,9 @@ export default class Links extends Component {
         "Content-type": "application/json",
       },
       body: JSON.stringify(data),
-    });
+    }).then(console.log("delited"));
 
-    // this.refreshGameList();
+    this.refreshGameList();
   };
 
   render() {

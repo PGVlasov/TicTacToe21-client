@@ -2,29 +2,27 @@ import React, { Component } from "react";
 import classes from "./GameList.module.css";
 import Button from "../../components/UI/Button/Button.js";
 import Links from "../../components/UI/List/Links.js";
-import Rating from "./Rating";
 import useState from "react";
 
 let links = [];
-let ratingList = [];
 
 export default class GameList extends Component {
-  createGame = () => {
+  createGame = async () => {
     links = {
-      creator: localStorage.getItem("localID"), //this.props.username   // TODO
+      creator: "Pit", //this.props.username   // TODO
       title: `http://localhost:3000/game/:${(+new Date()).toString(16)}`,
       cliced: 0,
     };
 
     console.log(links);
 
-    fetch("/createGame", {
+    await fetch("/createGame", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
       body: JSON.stringify(links),
-    });
+    }).then(console.log("sended"));
   };
 
   render() {
@@ -45,7 +43,7 @@ export default class GameList extends Component {
           <div className={classes.PlayersRange}>
             <h3>Рейтинг Игроков</h3>
             <hr></hr>
-            <Rating ratingList={ratingList} />
+            <p>Рейтинг находится в разработке :)</p>
           </div>
         </div>
       </div>

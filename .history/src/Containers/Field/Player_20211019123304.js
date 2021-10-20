@@ -213,10 +213,8 @@ class Players extends Component {
   }
 
   render() {
-    console.log("216", this.state.users);
     console.log("PROPS USERNAME", this.props.userName);
     const userArr = this.state.users[0];
-    //Object.entries(userArr).map(([key, value]) => [key, value]);
 
     for (var prop in userArr) {
       console.log("obj." + prop + " = " + userArr[prop]);

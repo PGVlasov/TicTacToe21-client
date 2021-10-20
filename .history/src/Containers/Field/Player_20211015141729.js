@@ -167,7 +167,7 @@ class Players extends Component {
     });
   };
 
-  componentDidMount(state) {
+  async componentDidMount(state) {
     //   //   .then(console.log("got something"))
     // .then((users) => this.setState({ users }));
     //   //   .then(function (response) {
@@ -213,17 +213,7 @@ class Players extends Component {
   }
 
   render() {
-    console.log("216", this.state.users);
     console.log("PROPS USERNAME", this.props.userName);
-    const userArr = this.state.users[0];
-    //Object.entries(userArr).map(([key, value]) => [key, value]);
-
-    for (var prop in userArr) {
-      console.log("obj." + prop + " = " + userArr[prop]);
-      //console.log("WWWWW", prop.name);
-    }
-
-    console.log("State USERNAME", userArr);
     if (this.state.editButtomClicked) {
       return (
         <div className={classes.Player}>
@@ -336,9 +326,9 @@ class Players extends Component {
 }
 
 function mapStateToProps(state) {
-  //   return {
-  //     userName: this.state.user.name,
-  //   };
+  return {
+    userName: this.state.user.name,
+  };
 }
 
-export default connect()(Players);
+export default connect(mapStateToProps)(Players);

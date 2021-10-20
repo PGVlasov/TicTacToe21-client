@@ -8,9 +8,9 @@ export default class Links extends Component {
     linkLength: 0,
   };
 
-  refreshGameList = () => {
+  refreshGameList = async () => {
     try {
-      fetch("/createGame")
+      await fetch("/createGame")
         .then((res) => res.json())
         .then((links) => this.setState({ links }));
     } catch (e) {
@@ -22,14 +22,14 @@ export default class Links extends Component {
     console.log(this.link);
   };
 
-  joinGame = (event) => {
+  joinGame = async (event) => {
     console.log("CLICED", event.target.id);
     let string = {
-      cliced: +1,
+      cliced: " +1",
       id: event.target.id,
     };
 
-    fetch("/createGame/cliced", {
+    await fetch("/createGame/cliced", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -40,29 +40,27 @@ export default class Links extends Component {
     this.refreshGameList();
   };
 
-  deleteGame = (event) => {
+  deleteGame = async (event) => {
     const aToDelete =
       event.target.previousElementSibling.previousElementSibling;
     let data = {
       id: aToDelete.id,
     };
-    fetch("/createGame/delete/", {
+    await fetch("/createGame/delete/", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
       body: JSON.stringify(data),
-    });
+    }).then(console.log("delited"));
 
-    // this.refreshGameList();
+    this.refreshGameList();
   };
 
   render() {
-    // try {
-    //   setInterval(() => {
-    //     this.refreshGameList();
-    //   }, 5000);
-    // } catch (e) {}
+    // setInterval(() => {
+    //   this.refreshGameList();
+    // }, 5000);
 
     return (
       <div>

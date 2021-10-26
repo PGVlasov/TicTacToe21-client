@@ -1,10 +1,12 @@
 import { Component, React } from "react";
-import classes from "./Register.module.css";
+import classes from "./Reset.module.css";
 import Button from "../../components/UI/Button/Button.js";
 import Input from "../../components/UI/Input/Input.js";
 import is from "is_js";
+import { connect } from "react-redux";
+import { Redirect, Switch } from "react-router";
 
-export default class Register extends Component {
+export default class Reset extends Component {
   state = {
     isFormValid: false,
     formControls: {
@@ -20,80 +22,26 @@ export default class Register extends Component {
           email: true,
         },
       },
-      password: {
-        value: "",
-        type: "password",
-        label: "Password",
-        errorMessage: "Длинна пароля не иожет быть менее 6 символов",
-        valid: false,
-        touched: false,
-        validation: {
-          required: true,
-          minLength: 6,
-        },
-      },
-      name: {
-        value: "",
-        type: "text",
-        label: "Name",
-        errorMessage: "Длинна не иожет быть менее 2 символов",
-        valid: false,
-        touched: false,
-        validation: {
-          required: true,
-          minLength: 2,
-        },
-      },
-      age: {
-        value: "",
-        type: "number",
-        label: "Age",
-        errorMessage: "введите число",
-        valid: false,
-        touched: false,
-        validation: {
-          required: true,
-          minLength: 1,
-        },
-      },
-      adress: {
-        value: "",
-        type: "text",
-        label: "Adress",
-        errorMessage: "Длинна не иожет быть менее 2 символов",
-        valid: false,
-        touched: false,
-        validation: {
-          required: true,
-          minLength: 2,
-        },
-      },
     },
   };
 
-  registerHeandler = (event) => {
+  resetHeandler = (event) => {
     event.preventDefault();
-    const { email, password, name, age, adress } = this.state.formControls;
+    const { email } = this.state.formControls;
     let data = {
       email: email.value,
-      password: password.value,
-      name: name.value,
-      age: age.value,
-      adress: adress.value,
     };
 
     console.log(data);
 
-    fetch("/addUser", {
+    fetch("/auth//reset", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
       body: JSON.stringify(data),
     });
-    document.location.href = "/auth";
-
-    console.log(email.value);
+    document.location = "/auth";
   };
 
   submitHeadler = (event) => {
@@ -162,16 +110,16 @@ export default class Register extends Component {
 
   render() {
     return (
-      <div className={classes.Register}>
-        <h1>Регистрация</h1>
-        <form onSubmit={this.submitHeadler} className={classes.RegisterForm}>
+      <div className={classes.Reset}>
+        <h1>Восстановление пароля</h1>
+        <form onSubmit={this.submitHeadler} className={classes.ResetForm}>
           {this.renderInputs()}
           <Button
-            type="success"
-            onClick={this.registerHeandler}
+            type="error"
+            onClick={this.resetHeandler}
             disabled={!this.state.isFormValid}
           >
-            Зарегестрироваться
+            Сбросить пароль
           </Button>
         </form>
       </div>

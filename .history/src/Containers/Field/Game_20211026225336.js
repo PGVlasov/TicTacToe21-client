@@ -58,7 +58,6 @@ const Game = () => {
           break;
       }
     });
-    // eslint-disable-next-line
   }, []);
 
   const onConnection = (clientId) => {

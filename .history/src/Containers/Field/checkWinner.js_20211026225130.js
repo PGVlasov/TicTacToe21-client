@@ -1,5 +1,6 @@
 export function checkWinner(board, lastMove) {
   const winnerCellNumber = 5;
+  //const boardSize = 9;
   const lastRow = lastMove.x;
   const lastColumn = lastMove.y;
   const step = lastMove.type;
@@ -122,6 +123,7 @@ export function checkWinnerLeftBottomRightTop(
 
   let isWinner = false;
   let numInRow = 0;
+  //   console.log(numInRow);
 
   try {
     for (let i = 0; i < 10; i++) {

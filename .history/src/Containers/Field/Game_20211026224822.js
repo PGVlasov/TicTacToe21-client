@@ -31,7 +31,6 @@ const Game = () => {
   const [board, setBoard] = useState(generateInitialBoard());
   const [step, setStep] = useState("X");
   const [isMoveAvaible, setMoveAvaible] = useState(true);
-  // eslint-disable-next-line
   const [enemyId, setEnemyId] = useState();
 
   const params = useParams();
@@ -58,7 +57,6 @@ const Game = () => {
           break;
       }
     });
-    // eslint-disable-next-line
   }, []);
 
   const onConnection = (clientId) => {

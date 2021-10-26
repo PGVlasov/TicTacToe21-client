@@ -3,6 +3,7 @@ import classes from "./Register.module.css";
 import Button from "../../components/UI/Button/Button.js";
 import Input from "../../components/UI/Input/Input.js";
 import is from "is_js";
+import { connect } from "react-redux";
 
 export default class Register extends Component {
   state = {

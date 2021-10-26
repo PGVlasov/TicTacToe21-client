@@ -1,0 +1,40 @@
+.GameParticipants {
+  margin: auto;
+  /* margin-left: 10%; */
+  margin-top: 10px;
+  display: inline-block;
+  background: linear-gradient(270deg, #979a9b 0%, #575e5f 100%);
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+  padding: 15px;
+  border-radius: 5px;
+  color: #fff;
+  width: 10%;
+  justify-content: space-between;
+  text-align: justify;
+}
+
+.ul {
+  display: inline-block;
+  margin-top: 10px;
+  width: 90%;
+  background-color: rgba(185, 196, 209, 0.2);
+  color: #e7f0e8;
+  border-bottom: 1px solid;
+}
+
+.p {
+  display: inline;
+  color: #e7f0e8;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.vs {
+  font-size: 30px;
+  color: red;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+}

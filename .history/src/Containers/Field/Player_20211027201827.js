@@ -12,12 +12,48 @@ import { connect } from "react-redux";
 
 let range;
 
+// function createFormControls() {
+//   return {
+//     name: createControl(
+//       {
+//         label: "Введите имя",
+//         errorMessage: "Имя не может быть пустым",
+//       },
+//       { required: true }
+//     ),
+//     age: createControl(
+//       {
+//         label: "Введите возраст",
+//         type: number,
+//         errorMessage: "Возраст не может быть пустым",
+//         validation: { age: true },
+//       },
+//       { required: true }
+//       //   {
+//       //     validation: {
+//       //       required: true,
+//       //       age: true,
+//       //     },
+//       //   }
+//     ),
+//     adress: createControl(
+//       {
+//         label: "Введите адрес",
+//         errorMessage: "Адрес не может быть пустым",
+//       },
+//       { required: true }
+//     ),
+//   };
+//}
+
 class Players extends Component {
   state = {
-    users: [],
+    users: [], // server test
+    USERSSSS: [],
     player: [],
     editButtomClicked: false,
     isFormValid: false,
+    //formControls: createFormControls(),
     formControls: {
       name: {
         value: "",

@@ -7,60 +7,65 @@ import Auxillary from "../../hoc/Auxillary/Auxillary.js";
 import Loader from "../../components/UI/Loader/Loader.js";
 import Uploader from "../../components/UI/Uploader/Uploader.js";
 import axios from "axios";
-import { validateForm } from "../../form/formFramework";
+import {
+  createControl,
+  validate,
+  validateForm,
+} from "../../form/formFramework";
+//import photo from "../../images/photo.jpeg";
+import { number } from "is_js";
 import { connect } from "react-redux";
 
 let range;
 
+function createFormControls() {
+  return {
+    name: createControl(
+      {
+        label: "Введите имя",
+        errorMessage: "Имя не может быть пустым",
+      },
+      { required: true }
+    ),
+    age: createControl(
+      {
+        label: "Введите возраст",
+        type: number,
+        errorMessage: "Возраст не может быть пустым",
+        validation: { age: true },
+      },
+      { required: true }
+      //   {
+      //     validation: {
+      //       required: true,
+      //       age: true,
+      //     },
+      //   }
+    ),
+    adress: createControl(
+      {
+        label: "Введите адрес",
+        errorMessage: "Адрес не может быть пустым",
+      },
+      { required: true }
+    ),
+  };
+}
+
 class Players extends Component {
   state = {
-    users: [],
+    users: [], // server test
+    USERSSSS: [],
     player: [],
     editButtomClicked: false,
     isFormValid: false,
-    formControls: {
-      name: {
-        value: "",
-        type: "text",
-        label: "Name",
-        errorMessage: "Длинна не иожет быть менее 2 символов",
-        valid: false,
-        touched: false,
-        validation: {
-          required: true,
-          minLength: 2,
-        },
-      },
-      age: {
-        value: "",
-        type: "number",
-        label: "Age",
-        errorMessage: "введите число",
-        valid: false,
-        touched: false,
-        validation: {
-          required: true,
-          minLength: 1,
-        },
-      },
-      adress: {
-        value: "",
-        type: "text",
-        label: "Adress",
-        errorMessage: "Длинна не иожет быть менее 2 символов",
-        valid: false,
-        touched: false,
-        validation: {
-          required: true,
-          minLength: 2,
-        },
-      },
-    },
+    formControls: createFormControls(),
     loading: true,
   };
 
   editUser = (event) => {
     event.preventDefault();
+    console.log("you can edit your profile");
     this.setState({
       editButtomClicked: true,
     });
@@ -72,8 +77,7 @@ class Players extends Component {
     this.setState({
       player,
       isFormValid: false,
-      //formControls: createFormControls(),
-      formControls: this.state.formControls,
+      formControls: createFormControls(),
       editButtomClicked: false,
     });
   };
@@ -81,6 +85,18 @@ class Players extends Component {
   submitHandler = (event) => {
     event.preventDefault();
   };
+
+  //   addAvatar = (event) => {
+  //     event.preventDefault();
+  //     let photo;
+  //     fetch("/avatar", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-type": "application/json",
+  //       },
+  //       body: JSON.stringify(photo),
+  //     }).then(console.log("avatar added"));
+  //   };
 
   showRange = () => {
     let range = 0;
@@ -101,6 +117,7 @@ class Players extends Component {
     };
 
     player.push(playerItem);
+    console.log(player);
 
     let data = {
       name: name.value,
@@ -109,20 +126,37 @@ class Players extends Component {
       userId: localStorage.getItem("localID"),
     };
 
+    console.log(data);
+
     fetch("/editUsers", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
       body: JSON.stringify(data),
-    });
+    }).then(console.log("sended"));
 
     this.setState({
       player,
       isFormValid: false,
-      //formControls: createFormControls(),
-      formControls: this.state.formControls,
+      formControls: createFormControls(),
       editButtomClicked: false,
+    });
+
+    console.log(this.state.imageList);
+  };
+  changeHandler = (value, controlName) => {
+    const formControls = { ...this.state.formControls };
+    const control = { ...formControls[controlName] };
+
+    control.touched = true;
+    control.value = value;
+    control.valid = validate(control.value, control.validation);
+
+    formControls[controlName] = control;
+    this.setState({
+      formControls,
+      isFormValid: validateForm(formControls),
     });
   };
 
@@ -139,6 +173,10 @@ class Players extends Component {
       },
       body: JSON.stringify(data),
     });
+    // axios.post("/users/delete", {
+    //   userId: localStorage.getItem("localID"),
+    // });
+
     document.location.href = "/auth";
     localStorage.removeItem("token");
     localStorage.removeItem("localID");
@@ -183,37 +221,6 @@ class Players extends Component {
     });
   }
 
-  validateControl(value, validation) {
-    if (!validation) {
-      return true;
-    }
-    let isValid = true;
-
-    if (validation.required) {
-      isValid = value.trim() !== "" && isValid;
-    }
-    if (validation.minLength) {
-      isValid = value.length >= validation.minLength && isValid;
-    }
-
-    return isValid;
-  }
-
-  changeHandler = (value, controlName) => {
-    const formControls = { ...this.state.formControls };
-    const control = { ...formControls[controlName] };
-
-    control.touched = true;
-    control.value = value;
-    control.valid = this.validateControl(control.value, control.validation);
-
-    formControls[controlName] = control;
-    this.setState({
-      formControls,
-      isFormValid: validateForm(formControls),
-    });
-  };
-
   render() {
     if (this.state.editButtomClicked) {
       return (
@@ -223,7 +230,7 @@ class Players extends Component {
             <div className={classes.PlayerForm}>
               <Uploader />
               {this.state.users.map((user) => (
-                <div key={user.id} className={classes.playerInfo}>
+                <div key={user.id}>
                   <p>
                     Email: <strong>{user.email}</strong>
                   </p>
@@ -287,7 +294,7 @@ class Players extends Component {
               <Loader />
             ) : (
               this.state.users.map((user) => (
-                <div key={user.id} className={classes.playerInfo}>
+                <div key={user.id}>
                   <p>
                     Email: <strong>{user.email}</strong>
                   </p>
@@ -295,7 +302,10 @@ class Players extends Component {
                     Имя: <strong>{user.name}</strong>
                   </p>
                   <p>
-                    Возраст: <strong>{user.age}</strong>
+                    Ваш возраст: <strong>{user.age}</strong>
+                  </p>
+                  <p>
+                    Пол: <strong>{user.sex}</strong>
                   </p>
                   <p>
                     Город: <strong>{user.adress}</strong>

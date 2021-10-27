@@ -7,17 +7,57 @@ import Auxillary from "../../hoc/Auxillary/Auxillary.js";
 import Loader from "../../components/UI/Loader/Loader.js";
 import Uploader from "../../components/UI/Uploader/Uploader.js";
 import axios from "axios";
-import { validateForm } from "../../form/formFramework";
+import {
+  // createControl,
+  validate,
+  validateForm,
+} from "../../form/formFramework";
 import { connect } from "react-redux";
 
 let range;
 
+// function createFormControls() {
+//   return {
+//     name: createControl(
+//       {
+//         label: "Введите имя",
+//         errorMessage: "Имя не может быть пустым",
+//       },
+//       { required: true }
+//     ),
+//     age: createControl(
+//       {
+//         label: "Введите возраст",
+//         type: number,
+//         errorMessage: "Возраст не может быть пустым",
+//         validation: { age: true },
+//       },
+//       { required: true }
+//       //   {
+//       //     validation: {
+//       //       required: true,
+//       //       age: true,
+//       //     },
+//       //   }
+//     ),
+//     adress: createControl(
+//       {
+//         label: "Введите адрес",
+//         errorMessage: "Адрес не может быть пустым",
+//       },
+//       { required: true }
+//     ),
+//   };
+//}
+
 class Players extends Component {
   state = {
-    users: [],
+    users: [], // server test
+    USERSSSS: [],
     player: [],
     editButtomClicked: false,
     isFormValid: false,
+    //formControls: createFormControls(),
     formControls: {
       name: {
         value: "",
@@ -125,6 +165,20 @@ class Players extends Component {
       editButtomClicked: false,
     });
   };
+  changeHandler = (value, controlName) => {
+    const formControls = { ...this.state.formControls };
+    const control = { ...formControls[controlName] };
+
+    control.touched = true;
+    control.value = value;
+    control.valid = validate(control.value, control.validation);
+
+    formControls[controlName] = control;
+    this.setState({
+      formControls,
+      isFormValid: validateForm(formControls),
+    });
+  };
 
   deleteUser = (event) => {
     event.preventDefault();
@@ -198,21 +252,6 @@ class Players extends Component {
 
     return isValid;
   }
-
-  changeHandler = (value, controlName) => {
-    const formControls = { ...this.state.formControls };
-    const control = { ...formControls[controlName] };
-
-    control.touched = true;
-    control.value = value;
-    control.valid = this.validateControl(control.value, control.validation);
-
-    formControls[controlName] = control;
-    this.setState({
-      formControls,
-      isFormValid: validateForm(formControls),
-    });
-  };
 
   render() {
     if (this.state.editButtomClicked) {

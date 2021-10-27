@@ -19,9 +19,12 @@ export default class Uploader extends Component {
     });
     this.state.image.push(event.target.files[0]);
     const img = this.state.image;
+
     const fdata = new FormData();
+
     fdata.append("image", img[0]);
     fdata.append("userId", JSON.stringify(localStorage.getItem("localID")));
+    console.log("FDATA", fdata);
     try {
       axios({
         method: "post",

@@ -119,7 +119,7 @@ const Game = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container" key={Math.random()}>
       {" "}
       <GameParticipants />
       <div
@@ -128,11 +128,10 @@ const Game = () => {
       >
         {board.map((row, rowIndex) => {
           return (
-            <div className="row" key={Math.random()}>
+            <div className="row">
               {row.map((xOrO, columnInd) => (
                 <div
                   className="cell"
-                  key={Math.random()}
                   onClick={() => handleMove(rowIndex, columnInd, step)}
                 >
                   {xOrO}

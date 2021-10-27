@@ -19,6 +19,7 @@ export default class Links extends Component {
   };
 
   joinGame = (event) => {
+    console.log("CLICED", event.target.id);
     let string = {
       cliced: +1,
       id: event.target.id,
@@ -77,6 +78,7 @@ export default class Links extends Component {
                 className={classes.a}
                 onClick={this.joinGame}
                 id={link._id}
+                // elementTiming={link.cliced} // вот это место очень непонятное, я просто не знал какой property использовать у тега <a> для передачи NUMBER и использовал elementTiming
               >
                 {"играть против:  " + link.creator}
               </a>

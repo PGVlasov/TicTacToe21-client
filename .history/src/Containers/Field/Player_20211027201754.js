@@ -7,17 +7,57 @@ import Auxillary from "../../hoc/Auxillary/Auxillary.js";
 import Loader from "../../components/UI/Loader/Loader.js";
 import Uploader from "../../components/UI/Uploader/Uploader.js";
 import axios from "axios";
-import { validateForm } from "../../form/formFramework";
+import {
+  // createControl,
+  validate,
+  validateForm,
+} from "../../form/formFramework";
 import { connect } from "react-redux";
 
 let range;
 
+// function createFormControls() {
+//   return {
+//     name: createControl(
+//       {
+//         label: "Введите имя",
+//         errorMessage: "Имя не может быть пустым",
+//       },
+//       { required: true }
+//     ),
+//     age: createControl(
+//       {
+//         label: "Введите возраст",
+//         type: number,
+//         errorMessage: "Возраст не может быть пустым",
+//         validation: { age: true },
+//       },
+//       { required: true }
+//       //   {
+//       //     validation: {
+//       //       required: true,
+//       //       age: true,
+//       //     },
+//       //   }
+//     ),
+//     adress: createControl(
+//       {
+//         label: "Введите адрес",
+//         errorMessage: "Адрес не может быть пустым",
+//       },
+//       { required: true }
+//     ),
+//   };
+//}
+
 class Players extends Component {
   state = {
-    users: [],
+    users: [], // server test
+    USERSSSS: [],
     player: [],
     editButtomClicked: false,
     isFormValid: false,
+    //formControls: createFormControls(),
     formControls: {
       name: {
         value: "",

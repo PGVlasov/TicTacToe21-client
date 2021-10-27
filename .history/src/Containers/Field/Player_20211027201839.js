@@ -14,10 +14,12 @@ let range;
 
 class Players extends Component {
   state = {
-    users: [],
+    users: [], // server test
+    USERSSSS: [],
     player: [],
     editButtomClicked: false,
     isFormValid: false,
+    //formControls: createFormControls(),
     formControls: {
       name: {
         value: "",

@@ -132,7 +132,6 @@ const Game = () => {
               {row.map((xOrO, columnInd) => (
                 <div
                   className="cell"
-                  key={Math.random()}
                   onClick={() => handleMove(rowIndex, columnInd, step)}
                 >
                   {xOrO}

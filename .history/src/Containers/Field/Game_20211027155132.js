@@ -119,7 +119,7 @@ const Game = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container" key={Math.random()}>
       {" "}
       <GameParticipants />
       <div

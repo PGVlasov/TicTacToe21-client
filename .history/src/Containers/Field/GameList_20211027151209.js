@@ -9,24 +9,19 @@ let ratingList = [];
 
 export default class GameList extends Component {
   createGame = () => {
-    try {
-      links = {
-        creator: localStorage.getItem("localID"),
-        title: `http://localhost:3000/game/:${(+new Date()).toString(16)}`,
-        cliced: 0,
-      };
+    links = {
+      creator: localStorage.getItem("localID"), //this.props.username   // TODO
+      title: `http://localhost:3000/game/:${(+new Date()).toString(16)}`,
+      cliced: 0,
+    };
 
-      fetch("/createGame", {
-        method: "POST",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(links),
-      });
-    } catch (e) {
-      console.log(e);
-    }
+    fetch("/createGame", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(links),
+    });
   };
 
   componentDidMount() {

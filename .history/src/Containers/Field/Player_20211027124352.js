@@ -161,29 +161,6 @@ class Players extends Component {
     });
   };
 
-  deleteUser = (event) => {
-    event.preventDefault();
-    console.log(localStorage.getItem("localID"));
-    let data = {
-      id: localStorage.getItem("localID"),
-    };
-    fetch("/users/delete/", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    // axios.post("/users/delete", {
-    //   userId: localStorage.getItem("localID"),
-    // });
-
-    document.location.href = "/auth";
-    localStorage.removeItem("token");
-    localStorage.removeItem("localID");
-    localStorage.removeItem("expirationDate");
-  };
-
   selectChangeHeandler = (event) => {
     this.setState({
       gender: event.target.value,
@@ -270,7 +247,11 @@ class Players extends Component {
                     >
                       Сохранить изменения информации
                     </Button>
-                    <Button type="error" onClick={this.deleteUser}>
+                    <Button
+                      type="success"
+                      onClick={this.saveUser}
+                      disabled={!this.state.isFormValid}
+                    >
                       Удалить Аккаунт
                     </Button>
                   </form>

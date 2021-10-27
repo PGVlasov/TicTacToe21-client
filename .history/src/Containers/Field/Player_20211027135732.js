@@ -164,24 +164,14 @@ class Players extends Component {
   deleteUser = (event) => {
     event.preventDefault();
     console.log(localStorage.getItem("localID"));
-    let data = {
-      id: localStorage.getItem("localID"),
-    };
-    fetch("/users/delete/", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(data),
+    axios.post("/users/delete", {
+      userId: localStorage.getItem("localID"),
     });
-    // axios.post("/users/delete", {
-    //   userId: localStorage.getItem("localID"),
-    // });
 
-    document.location.href = "/auth";
-    localStorage.removeItem("token");
-    localStorage.removeItem("localID");
-    localStorage.removeItem("expirationDate");
+    // document.location.href = "/auth";
+    // localStorage.removeItem("token");
+    // localStorage.removeItem("localID");
+    // localStorage.removeItem("expirationDate");
   };
 
   selectChangeHeandler = (event) => {

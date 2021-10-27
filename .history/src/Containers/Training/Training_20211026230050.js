@@ -13,6 +13,7 @@ export default class Training extends Component {
 
   async componentDidMount(state) {
     this.setState({ loading: false });
+    setTimeout(console.log("!!!"), 5000);
   }
   render() {
     return (

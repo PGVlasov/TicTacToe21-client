@@ -167,7 +167,7 @@ class Players extends Component {
     let data = {
       id: localStorage.getItem("localID"),
     };
-    fetch("/users/delete/", {
+    fetch("/createGame/delete/", {
       method: "POST",
       headers: {
         "Content-type": "application/json",

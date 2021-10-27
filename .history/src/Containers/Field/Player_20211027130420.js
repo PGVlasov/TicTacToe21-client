@@ -163,25 +163,15 @@ class Players extends Component {
 
   deleteUser = (event) => {
     event.preventDefault();
-    console.log(localStorage.getItem("localID"));
-    let data = {
-      id: localStorage.getItem("localID"),
-    };
-    fetch("/users/delete/", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    // axios.post("/users/delete", {
-    //   userId: localStorage.getItem("localID"),
-    // });
 
-    document.location.href = "/auth";
-    localStorage.removeItem("token");
-    localStorage.removeItem("localID");
-    localStorage.removeItem("expirationDate");
+    axios.post("/users/delete", {
+      userId: localStorage.getItem("localID"),
+    });
+
+    // document.location.href = "/player"
+    //     localStorage.removeItem("token");
+    //   localStorage.removeItem("localID");
+    //   localStorage.removeItem("expirationDate");
   };
 
   selectChangeHeandler = (event) => {
@@ -270,7 +260,7 @@ class Players extends Component {
                     >
                       Сохранить изменения информации
                     </Button>
-                    <Button type="error" onClick={this.deleteUser}>
+                    <Button type="error" onClick={this.saveUser}>
                       Удалить Аккаунт
                     </Button>
                   </form>

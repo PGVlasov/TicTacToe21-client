@@ -11,8 +11,14 @@ export default class Training extends Component {
     return <Loader />;
   };
 
+  //   showVideo = () => {
+  //     console.log("videoCliced");
+  //     console.log(this.state);
+  //   };
+
   async componentDidMount(state) {
     this.setState({ loading: false });
+    setTimeout(console.log("!!!"), 5000);
   }
   render() {
     return (

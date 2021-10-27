@@ -1,5 +1,5 @@
 import is from "is_js";
-// import { number } from "is_js";
+import { number } from "is_js";
 
 export function createControl(config, validation) {
   return {

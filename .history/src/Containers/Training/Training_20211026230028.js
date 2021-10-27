@@ -11,15 +11,21 @@ export default class Training extends Component {
     return <Loader />;
   };
 
+  //   showVideo = () => {
+  //     console.log("videoCliced");
+  //     console.log(this.state);
+  //   };
+
   async componentDidMount(state) {
     this.setState({ loading: false });
+    setTimeout(console.log("!!!"), 5000);
   }
   render() {
     return (
       <div className={classes.Training}>
         <h1>Обучающие видео</h1>
         <div>
-          <div className={classes.video}>
+          <div className={classes.video} onClick={this.showVideo}>
             <h4>Video 1</h4>
             <p>Крестики-нолики 10 на 10</p>
             <div className={classes.overlay}>

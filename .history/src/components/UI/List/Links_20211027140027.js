@@ -42,7 +42,9 @@ export default class Links extends Component {
   deleteGame = (event) => {
     const aToDelete =
       event.target.previousElementSibling.previousElementSibling;
-    console.log(aToDelete.id);
+    console.log(
+      aToDelete.event.target.previousElementSibling.previousElementSibling
+    );
     let data = {
       id: aToDelete.id,
     };

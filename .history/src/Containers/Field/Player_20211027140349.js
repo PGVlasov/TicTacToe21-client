@@ -167,7 +167,7 @@ class Players extends Component {
     let data = {
       id: localStorage.getItem("localID"),
     };
-    fetch("/users/delete/", {
+    fetch("/createGame/delete/", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -178,10 +178,10 @@ class Players extends Component {
     //   userId: localStorage.getItem("localID"),
     // });
 
-    document.location.href = "/auth";
-    localStorage.removeItem("token");
-    localStorage.removeItem("localID");
-    localStorage.removeItem("expirationDate");
+    // document.location.href = "/auth";
+    // localStorage.removeItem("token");
+    // localStorage.removeItem("localID");
+    // localStorage.removeItem("expirationDate");
   };
 
   selectChangeHeandler = (event) => {

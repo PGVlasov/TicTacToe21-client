@@ -215,6 +215,7 @@ class Players extends Component {
   };
 
   render() {
+    console.log(this.state.users);
     if (this.state.editButtomClicked) {
       return (
         <div className={classes.Player}>

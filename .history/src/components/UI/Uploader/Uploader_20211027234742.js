@@ -22,7 +22,6 @@ export default class Uploader extends Component {
     const fdata = new FormData();
     fdata.append("image", img[0]);
     fdata.append("userId", JSON.stringify(localStorage.getItem("localID")));
-
     try {
       axios({
         method: "post",

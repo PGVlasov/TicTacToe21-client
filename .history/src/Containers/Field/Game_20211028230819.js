@@ -4,7 +4,7 @@ import "./Field1.css";
 import GameParticipants from "./GameParticipants";
 import { useParams } from "react-router-dom";
 import * as ws from "./websocket";
-import { move, alertWinner } from "./game-core";
+import { move, gotWinner } from "./game-core";
 import { checkWinner } from "./checkWinner.js";
 
 function getIsSecondary() {
@@ -38,13 +38,18 @@ const Game = () => {
 
   useEffect(() => {
     ws.connect(params.id, isSecondary, (event) => {
+      console.log("ws msg:", event.data);
       let msg = JSON.parse(event.data);
+
       switch (msg.type) {
         case "PLAYER_MOVE":
+          // console.log("RECEIVED_MSG", msg);
           onOtherPlayerMove(msg.payload, board);
           break;
+
         case "CONNECTED":
-          onConnection(msg.payload.clientId);
+          // console.log("---->>>CONNECTED_MSG");
+          onConnection(msg.payload);
           break;
         default:
           break;
@@ -55,19 +60,20 @@ const Game = () => {
 
   const onConnection = (clientId) => {
     setEnemyId(clientId);
-    localStorage.setItem("EnemyID", clientId);
+    localStorage.setItem("EnemyIDII", clientId);
   };
 
-  const onOtherPlayerMove = ({ x, y, step, hasWinner, board }) => {
+  const onOtherPlayerMove = ({ x, y, step, hasWinner, id, board }) => {
     if (hasWinner) {
-      alertWinner(step, params);
-      return;
+      return gotWinner(step, params);
+    } else {
+      const newBoard = move(step, board, x, y);
+      setMoveAvaible(true);
+      setBoard(newBoard);
+      setStep(step === "X" ? "O" : "X");
+      setEnemyId(id);
+      localStorage.setItem("EnemyID", id);
     }
-
-    const newBoard = move(step, board, x, y);
-    setMoveAvaible(true);
-    setBoard(newBoard);
-    setStep(step === "X" ? "O" : "X");
   };
 
   const handleMove = (x, y, step) => {
@@ -79,7 +85,7 @@ const Game = () => {
     });
 
     let moveCurrentCell = board[x][y];
-    if (moveCurrentCell !== null) {
+    if (moveCurrentCell != null) {
       alert("Внимание ячейка занята");
     } else {
       setBoard(newBoard);
@@ -96,23 +102,26 @@ const Game = () => {
         id,
       });
     }
-
     if (hasWinner) {
-      alertWinner(step, params);
+      return gotWinner(step, params);
     }
   };
 
   return (
     <div className="container">
+      {" "}
       <GameParticipants />
-      <div className={`board${isMoveAvaible ? "" : "-disabled"}`}>
+      <div
+        className={`board${isMoveAvaible ? "" : "-disabled"}`}
+        key={Math.random()}
+      >
         {board.map((row, rowIndex) => {
           return (
             <div className="row" key={Math.random()}>
               {row.map((xOrO, columnInd) => (
                 <div
                   className="cell"
-                  key={`${rowIndex}-${columnInd}`}
+                  key={Math.random()}
                   onClick={() => handleMove(rowIndex, columnInd, step)}
                 >
                   {xOrO}

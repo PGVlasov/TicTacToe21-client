@@ -215,6 +215,7 @@ class Players extends Component {
   };
 
   render() {
+    console.log(this.state.user);
     if (this.state.editButtomClicked) {
       return (
         <div className={classes.Player}>
@@ -223,7 +224,7 @@ class Players extends Component {
             <div className={classes.PlayerForm}>
               <Uploader />
               {this.state.users.map((user) => (
-                <div key={user._id} className={classes.playerInfo}>
+                <div key={user.id} className={classes.playerInfo}>
                   <p>
                     Email: <strong>{user.email}</strong>
                   </p>
@@ -270,7 +271,7 @@ class Players extends Component {
           <h1>Профиль</h1>
           <div className={classes.PlayerPhoto}>
             {this.state.users.map((user) => (
-              <div key={user._id}>
+              <div key={user.id}>
                 <img
                   className={classes.avatar}
                   src={user.avatarUrl}
@@ -287,7 +288,7 @@ class Players extends Component {
               <Loader />
             ) : (
               this.state.users.map((user) => (
-                <div key={user._id} className={classes.playerInfo}>
+                <div key={user.id} className={classes.playerInfo}>
                   <p>
                     Email: <strong>{user.email}</strong>
                   </p>

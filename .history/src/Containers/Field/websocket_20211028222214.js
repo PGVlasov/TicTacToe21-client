@@ -3,7 +3,7 @@ let ws;
 export function connect(id, isSecondary, cb) {
   ws = new WebSocket("ws://localhost:5000/");
   ws.onopen = () => onOpen(id, isSecondary);
-  ws.onmessage = cb;
+  ws.onmessage = cb; ////вот тут
 }
 
 export function onOpen(roomId, isSecondary) {

@@ -22,7 +22,6 @@ export default class Uploader extends Component {
     const fdata = new FormData();
     fdata.append("image", img[0]);
     fdata.append("userId", JSON.stringify(localStorage.getItem("localID")));
-
     try {
       axios({
         method: "post",
@@ -43,7 +42,7 @@ export default class Uploader extends Component {
 
   render() {
     return (
-      <div className={classes.Uploader}>
+      <div className={classes.Uploader} key={Math.random()}>
         <input
           type="file"
           nv-file-select=""

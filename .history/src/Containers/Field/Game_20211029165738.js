@@ -38,13 +38,17 @@ const Game = () => {
 
   useEffect(() => {
     ws.connect(params.id, isSecondary, (event) => {
+      console.log("ws msg:", event.data);
       let msg = JSON.parse(event.data);
       switch (msg.type) {
         case "PLAYER_MOVE":
           onOtherPlayerMove(msg.payload, board);
           break;
+
         case "CONNECTED":
-          onConnection(msg.payload.clientId);
+          onConnection(msg.payload);
+          console.log("------>>>>>>> CONECTED");
+          console.log("------>>>>>>> CONECTED");
           break;
         default:
           break;
@@ -55,10 +59,11 @@ const Game = () => {
 
   const onConnection = (clientId) => {
     setEnemyId(clientId);
-    localStorage.setItem("EnemyID", clientId);
+    localStorage.setItem("EnemyIDII", clientId);
+    console.log("ENOMY", localStorage.getItem("EnemyIDII"));
   };
 
-  const onOtherPlayerMove = ({ x, y, step, hasWinner, board }) => {
+  const onOtherPlayerMove = ({ x, y, step, hasWinner, id, board }) => {
     if (hasWinner) {
       alertWinner(step, params);
       return;
@@ -68,6 +73,8 @@ const Game = () => {
     setMoveAvaible(true);
     setBoard(newBoard);
     setStep(step === "X" ? "O" : "X");
+    setEnemyId(id);
+    localStorage.setItem("EnemyID", id);
   };
 
   const handleMove = (x, y, step) => {

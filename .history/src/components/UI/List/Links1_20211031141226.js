@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import classes from "./Links.module.css";
 import Button from "../Button/Button";
 
-const Links = () => {
+const Links1 = () => {
   const [links, setLinks] = useState([]);
 
   const refreshGameList = async () => {
@@ -51,6 +51,7 @@ const Links = () => {
       console.log(e);
     }
   };
+  //() => setCount(count + 1)
 
   return (
     <div>
@@ -65,7 +66,7 @@ const Links = () => {
               <a
                 href={link.url}
                 className={classes.a}
-                onClick={(event) => joinGame(event)}
+                onClick={() => joinGame()}
                 id={link._id}
               >
                 {"играть против:  " + link.creator}
@@ -80,7 +81,7 @@ const Links = () => {
                 className={classes.button}
                 type="error"
                 id={link._id}
-                onClick={(event) => deleteGame(event)}
+                onClick={() => deleteGame(link)}
               >
                 &times;
               </Button>
@@ -92,4 +93,4 @@ const Links = () => {
   );
 };
 
-export default Links;
+export default Links1;

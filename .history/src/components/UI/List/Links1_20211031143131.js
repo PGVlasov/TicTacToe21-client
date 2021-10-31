@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import classes from "./Links.module.css";
 import Button from "../Button/Button";
 
-const Links = () => {
+const Links1 = () => {
   const [links, setLinks] = useState([]);
 
   const refreshGameList = async () => {
@@ -18,18 +18,21 @@ const Links = () => {
   };
 
   const joinGame = (event) => {
-    let string = {
-      cliced: +1,
-      id: event.target.id,
-    };
+    let string =
+      //"string";
+      {
+        cliced: +1,
+        id: event.target.id,
+      };
 
-    fetch("/createGame/cliced", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(string),
-    }).then(console.log("cliced"));
+    // fetch("/createGame/cliced", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-type": "application/json",
+    //   },
+    //   body: JSON.stringify(string),
+    // }).then(console.log("cliced"));
+    alert(string);
   };
 
   const deleteGame = async (event) => {
@@ -51,6 +54,7 @@ const Links = () => {
       console.log(e);
     }
   };
+  //() => setCount(count + 1)
 
   return (
     <div>
@@ -80,7 +84,7 @@ const Links = () => {
                 className={classes.button}
                 type="error"
                 id={link._id}
-                onClick={(event) => deleteGame(event)}
+                onClick={() => deleteGame(link)}
               >
                 &times;
               </Button>
@@ -92,4 +96,4 @@ const Links = () => {
   );
 };
 
-export default Links;
+export default Links1;

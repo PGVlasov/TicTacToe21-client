@@ -2,19 +2,17 @@ import React, { useState } from "react";
 import classes from "./Links.module.css";
 import Button from "../Button/Button";
 
-const Links = () => {
+const Links1 = () => {
   const [links, setLinks] = useState([]);
 
   const refreshGameList = async () => {
     try {
       await fetch("/createGame")
         .then((res) => res.json())
-        .then((links) => setLinks([...links]));
+        .then((links) => this.setState({ links }));
     } catch (e) {
       console.log(e);
     }
-
-    console.log(links);
   };
 
   const joinGame = (event) => {
@@ -30,6 +28,7 @@ const Links = () => {
       },
       body: JSON.stringify(string),
     }).then(console.log("cliced"));
+    this.refreshGameList();
   };
 
   const deleteGame = async (event) => {
@@ -51,21 +50,21 @@ const Links = () => {
       console.log(e);
     }
   };
-
+  //() => setCount(count + 1)
   return (
     <div>
       <Button type="primary" onClick={() => refreshGameList()}>
         Обновить список игр
       </Button>
       <hr />
-      {links.map((link) => {
-        return (
+      {setLinks(
+        links.map((link) => (
           <ul className={classes.li} key={link._id}>
-            <li>
+            <li ref={this.linkRef}>
               <a
                 href={link.url}
                 className={classes.a}
-                onClick={(event) => joinGame(event)}
+                onClick={() => joinGame()}
                 id={link._id}
               >
                 {"играть против:  " + link.creator}
@@ -80,16 +79,16 @@ const Links = () => {
                 className={classes.button}
                 type="error"
                 id={link._id}
-                onClick={(event) => deleteGame(event)}
+                onClick={() => deleteGame()}
               >
                 &times;
               </Button>
             </li>
           </ul>
-        );
-      })}
+        ))
+      )}
     </div>
   );
 };
 
-export default Links;
+export default Links1;

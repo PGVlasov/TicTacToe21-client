@@ -1,23 +1,23 @@
-import React, { useState } from "react";
+import React, { Component } from "react";
 import classes from "./Links.module.css";
 import Button from "../Button/Button";
 
-const Links = () => {
-  const [links, setLinks] = useState([]);
+export default class Links extends Component {
+  state = {
+    links: [],
+  };
 
-  const refreshGameList = async () => {
+  refreshGameList = async () => {
     try {
       await fetch("/createGame")
         .then((res) => res.json())
-        .then((links) => setLinks([...links]));
+        .then((links) => this.setState({ links }));
     } catch (e) {
       console.log(e);
     }
-
-    console.log(links);
   };
 
-  const joinGame = (event) => {
+  joinGame = (event) => {
     let string = {
       cliced: +1,
       id: event.target.id,
@@ -30,9 +30,10 @@ const Links = () => {
       },
       body: JSON.stringify(string),
     }).then(console.log("cliced"));
+    this.refreshGameList();
   };
 
-  const deleteGame = async (event) => {
+  deleteGame = async (event) => {
     try {
       const aToDelete =
         event.target.previousElementSibling.previousElementSibling;
@@ -52,20 +53,20 @@ const Links = () => {
     }
   };
 
-  return (
-    <div>
-      <Button type="primary" onClick={() => refreshGameList()}>
-        Обновить список игр
-      </Button>
-      <hr />
-      {links.map((link) => {
-        return (
-          <ul className={classes.li} key={link._id}>
-            <li>
+  render() {
+    return (
+      <div>
+        <Button type="primary" onClick={this.refreshGameList}>
+          Обновить список игр
+        </Button>
+        <hr />
+        {this.state.links.map((link) => (
+          <ul className={classes.li} key={Math.random()}>
+            <li ref={this.linkRef}>
               <a
                 href={link.url}
                 className={classes.a}
-                onClick={(event) => joinGame(event)}
+                onClick={this.joinGame}
                 id={link._id}
               >
                 {"играть против:  " + link.creator}
@@ -80,16 +81,14 @@ const Links = () => {
                 className={classes.button}
                 type="error"
                 id={link._id}
-                onClick={(event) => deleteGame(event)}
+                onClick={this.deleteGame}
               >
                 &times;
               </Button>
             </li>
           </ul>
-        );
-      })}
-    </div>
-  );
-};
-
-export default Links;
+        ))}
+      </div>
+    );
+  }
+}

@@ -2,19 +2,17 @@ import React, { useState } from "react";
 import classes from "./Links.module.css";
 import Button from "../Button/Button";
 
-const Links = () => {
-  const [links, setLinks] = useState([]);
+const Links1 = () => {
+  const [links, setLinks] = useState();
 
   const refreshGameList = async () => {
     try {
       await fetch("/createGame")
         .then((res) => res.json())
-        .then((links) => setLinks([...links]));
+        .then((links) => this.setState({ links }));
     } catch (e) {
       console.log(e);
     }
-
-    console.log(links);
   };
 
   const joinGame = (event) => {
@@ -30,6 +28,7 @@ const Links = () => {
       },
       body: JSON.stringify(string),
     }).then(console.log("cliced"));
+    this.refreshGameList();
   };
 
   const deleteGame = async (event) => {
@@ -58,38 +57,33 @@ const Links = () => {
         Обновить список игр
       </Button>
       <hr />
-      {links.map((link) => {
-        return (
-          <ul className={classes.li} key={link._id}>
-            <li>
-              <a
-                href={link.url}
-                className={classes.a}
-                onClick={(event) => joinGame(event)}
-                id={link._id}
-              >
-                {"играть против:  " + link.creator}
-              </a>
+      {this.state.links.map((link) => (
+        <ul className={classes.li} key={Math.random()}>
+          <li ref={this.linkRef}>
+            <a
+              href={link.url}
+              className={classes.a}
+              onClick={this.joinGame}
+              id={link._id}
+            >
+              {"играть против:  " + link.creator}
+            </a>
 
-              <span className={classes.span}>
-                {" "}
-                игроков:[ {link.cliced} из 2]
-              </span>
+            <span className={classes.span}> игроков:[ {link.cliced} из 2]</span>
 
-              <Button
-                className={classes.button}
-                type="error"
-                id={link._id}
-                onClick={(event) => deleteGame(event)}
-              >
-                &times;
-              </Button>
-            </li>
-          </ul>
-        );
-      })}
+            <Button
+              className={classes.button}
+              type="error"
+              id={link._id}
+              onClick={() => deleteGame()}
+            >
+              &times;
+            </Button>
+          </li>
+        </ul>
+      ))}
     </div>
   );
 };
 
-export default Links;
+export default Links1;

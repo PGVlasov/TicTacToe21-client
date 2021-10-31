@@ -30,6 +30,7 @@ const Links = () => {
       },
       body: JSON.stringify(string),
     }).then(console.log("cliced"));
+    alert(string);
   };
 
   const deleteGame = async (event) => {

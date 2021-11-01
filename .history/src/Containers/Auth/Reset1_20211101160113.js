@@ -4,7 +4,7 @@ import Button from "../../components/UI/Button/Button.js";
 import Input from "../../components/UI/Input/Input.js";
 import is from "is_js";
 
-const Reset = () => {
+const Reset1 = () => {
   const [isFormValid, setFormValid] = useState(false);
   const [
     formControls = {
@@ -26,10 +26,12 @@ const Reset = () => {
 
   const resetHeandler = (event) => {
     event.preventDefault();
+    console.log("---->RESET");
     const { email } = formControls;
     let data = {
       email: email.value,
     };
+
     fetch("/auth//reset", {
       method: "POST",
       headers: {
@@ -122,4 +124,4 @@ const Reset = () => {
   );
 };
 
-export default Reset;
+export default Reset1;

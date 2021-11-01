@@ -4,7 +4,7 @@ import Button from "../../components/UI/Button/Button.js";
 import Input from "../../components/UI/Input/Input.js";
 import is from "is_js";
 
-const Reset = () => {
+const Reset1 = () => {
   const [isFormValid, setFormValid] = useState(false);
   const [
     formControls = {
@@ -30,6 +30,7 @@ const Reset = () => {
     let data = {
       email: email.value,
     };
+
     fetch("/auth//reset", {
       method: "POST",
       headers: {
@@ -44,7 +45,7 @@ const Reset = () => {
     event.preventDefault();
   };
 
-  const renderInputs = (event) => {
+  const renderInputs = () => {
     return Object.keys(formControls).map((controlName, index) => {
       const control = formControls[controlName];
       return (
@@ -83,36 +84,33 @@ const Reset = () => {
   };
 
   const onChangeHandler = (event, controlName) => {
-    const fControls = { ...formControls };
-    const control = { ...fControls[controlName] };
+    const formControls = { ...formControls };
+    const control = { ...formControls[controlName] };
 
     control.value = event.target.value;
     control.touched = true;
     control.valid = validateControl(control.value, control.validation);
 
-    fControls[controlName] = control;
+    formControls[controlName] = control;
 
     let isFormValid = true;
 
-    Object.keys(fControls).forEach((name) => {
-      isFormValid = fControls[name].valid && isFormValid;
+    Object.keys(formControls).forEach((name) => {
+      isFormValid = formControls[name].valid && isFormValid;
     });
 
-    setFormValid(isFormValid);
-    setformControls(fControls);
+    setFormValid(false);
+    setformControls(formControls);
   };
 
   return (
     <div className={classes.Reset}>
       <h1>Восстановление пароля</h1>
-      <form
-        onSubmit={(event) => submitHeadler(event)}
-        className={classes.ResetForm}
-      >
-        {renderInputs()}
+      <form onSubmit={() => submitHeadler()} className={classes.ResetForm}>
+        {() => renderInputs()}
         <Button
           type="error"
-          onClick={(event) => resetHeandler(event)}
+          onClick={() => resetHeandler()}
           disabled={!isFormValid}
         >
           Сбросить пароль
@@ -122,4 +120,4 @@ const Reset = () => {
   );
 };
 
-export default Reset;
+export default Reset1;

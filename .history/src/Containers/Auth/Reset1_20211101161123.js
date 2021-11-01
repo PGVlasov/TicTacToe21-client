@@ -4,7 +4,7 @@ import Button from "../../components/UI/Button/Button.js";
 import Input from "../../components/UI/Input/Input.js";
 import is from "is_js";
 
-const Reset = () => {
+const Reset1 = () => {
   const [isFormValid, setFormValid] = useState(false);
   const [
     formControls = {
@@ -122,4 +122,4 @@ const Reset = () => {
   );
 };
 
-export default Reset;
+export default Reset1;

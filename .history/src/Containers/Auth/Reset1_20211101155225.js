@@ -4,7 +4,7 @@ import Button from "../../components/UI/Button/Button.js";
 import Input from "../../components/UI/Input/Input.js";
 import is from "is_js";
 
-const Reset = () => {
+const Reset1 = () => {
   const [isFormValid, setFormValid] = useState(false);
   const [
     formControls = {
@@ -26,18 +26,20 @@ const Reset = () => {
 
   const resetHeandler = (event) => {
     event.preventDefault();
-    const { email } = formControls;
-    let data = {
-      email: email.value,
-    };
-    fetch("/auth//reset", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    document.location = "/auth";
+    console.log("---->RESET");
+    // const { email } = formControls;
+    // let data = {
+    //   email: email.value,
+    // };
+
+    // fetch("/auth//reset", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-type": "application/json",
+    //   },
+    //   body: JSON.stringify(data),
+    // });
+    // document.location = "/auth";
   };
 
   const submitHeadler = (event) => {
@@ -94,12 +96,12 @@ const Reset = () => {
 
     let isFormValid = true;
 
-    Object.keys(fControls).forEach((name) => {
-      isFormValid = fControls[name].valid && isFormValid;
+    Object.keys(formControls).forEach((name) => {
+      isFormValid = formControls[name].valid && isFormValid;
     });
 
-    setFormValid(isFormValid);
-    setformControls(fControls);
+    setFormValid(false);
+    setformControls(formControls);
   };
 
   return (
@@ -122,4 +124,4 @@ const Reset = () => {
   );
 };
 
-export default Reset;
+export default Reset1;

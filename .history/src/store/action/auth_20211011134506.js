@@ -21,10 +21,14 @@ export function auth(email, password) {
         console.log(error);
       });
 
+    console.log("fetchResult", authResult);
+
     if (authResult) {
+      console.log("fetchResult", authResult);
       const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
       const idToken = `${(+new Date()).toString(10)}`;
       const localID = authResult;
+      console.log("fetchResult", localID);
       localStorage.setItem("token", idToken);
       localStorage.setItem("localID", localID);
       localStorage.setItem("expirationDate", expirationDate);

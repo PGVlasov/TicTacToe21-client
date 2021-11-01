@@ -20,6 +20,11 @@ class Navbar extends Component {
                 Lobby
               </NavLink>
             </li>
+            {/* <li className={classes.li}>
+              <NavLink to="/game/:id" className={classes.NavLink}>
+                Game
+              </NavLink>
+            </li> */}
             <li className={classes.li}>
               <NavLink to="/training" className={classes.NavLink}>
                 Training
@@ -30,9 +35,14 @@ class Navbar extends Component {
                 Player
               </NavLink>
             </li>
-            <li className={classes.li}>
+            {/* <li className={classes.li}>
               <NavLink to="/logout" className={classes.NavLink}>
                 Logout
+              </NavLink>
+            </li> */}
+            <li className={classes.li}>
+              <NavLink to="/logout1" className={classes.NavLink}>
+                Logout1
               </NavLink>
             </li>
           </ul>

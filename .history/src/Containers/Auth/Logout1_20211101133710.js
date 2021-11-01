@@ -3,12 +3,16 @@ import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout } from "../../store/action/auth";
 
-const Logout = (props) => {
+const Logout = () => {
   useEffect(() => {
-    props.logout();
+    this.props.logout();
     console.log("logout done");
-    // eslint-disable-next-line
   }, []);
+  //   componentDidMount() {
+  //     this.props.logout();
+  //     console.log("logout done");
+  //   }
+
   return <Redirect to={"/auth"} />;
 };
 

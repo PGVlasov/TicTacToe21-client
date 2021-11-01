@@ -162,14 +162,11 @@ const Register = () => {
   return (
     <div className={classes.Register}>
       <h1>Регистрация</h1>
-      <form
-        onSubmit={(event) => submitHeadler(event)}
-        className={classes.RegisterForm}
-      >
+      <form onSubmit={() => submitHeadler()} className={classes.RegisterForm}>
         {renderInputs()}
         <Button
           type="success"
-          onClick={(event) => registerHeandler(event)}
+          onClick={() => registerHeandler()}
           disabled={!isFormValid}
         >
           Зарегестрироваться

@@ -74,7 +74,7 @@ const Register = () => {
 
   const registerHeandler = (event) => {
     event.preventDefault();
-    const { email, password, name, age, adress } = formControls;
+    const { email, password, name, age, adress } = this.state.formControls;
     let data = {
       email: email.value,
       password: password.value,
@@ -102,7 +102,7 @@ const Register = () => {
   };
 
   const renderInputs = () => {
-    return Object.keys(formControls).map((controlName, index) => {
+    return Object.keys(this.state.formControls).map((controlName, index) => {
       const control = formControls[controlName];
       return (
         <Input
@@ -114,7 +114,7 @@ const Register = () => {
           label={control.label}
           shouldValidate={!!control.validation}
           errorMessage={control.errorMessage}
-          onChange={(event) => onChangeHandler(event, controlName)}
+          onChange={(event) => this.onChangeHandler(event, controlName)}
         />
       );
     });
@@ -155,21 +155,18 @@ const Register = () => {
       isFormValid = fControls[name].valid && isFormValid;
     });
 
-    setFormValid(isFormValid);
+    setformControls(true);
     setformControls(fControls);
   };
 
   return (
     <div className={classes.Register}>
       <h1>Регистрация</h1>
-      <form
-        onSubmit={(event) => submitHeadler(event)}
-        className={classes.RegisterForm}
-      >
+      <form onSubmit={() => submitHeadler()} className={classes.RegisterForm}>
         {renderInputs()}
         <Button
           type="success"
-          onClick={(event) => registerHeandler(event)}
+          onClick={() => registerHeandler()}
           disabled={!isFormValid}
         >
           Зарегестрироваться

@@ -1,57 +1,50 @@
 import { useState, React } from "react";
-import { useParams } from "react-router-dom";
-import classes from "./NewPassword.module.css";
+import classes from "./Reset.module.css";
 import Button from "../../components/UI/Button/Button.js";
 import Input from "../../components/UI/Input/Input.js";
 import is from "is_js";
 
-const NewPassord1 = () => {
+const Reset = () => {
   const [isFormValid, setFormValid] = useState(false);
   const [
     formControls = {
-      password: {
+      email: {
         value: "",
-        type: "password",
-        label: "Password",
-        errorMessage: "Длинна пароля не иожет быть менее 6 символов",
+        type: "email",
+        label: "Email",
+        errorMessage: "Введите корректный email",
         valid: false,
         touched: false,
         validation: {
           required: true,
-          minLength: 6,
+          email: true,
         },
       },
     },
     setformControls,
   ] = useState();
 
-  const params = useParams();
-
-  const newPasswordHeandler = (event) => {
+  const resetHeandler = (event) => {
     event.preventDefault();
-    let token = params.token;
-    const { password } = formControls;
-
+    const { email } = formControls;
     let data = {
-      token: token,
-      password: password.value,
+      email: email.value,
     };
-
-    fetch("/auth//newPassword", {
+    fetch("/auth//reset", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
       body: JSON.stringify(data),
     });
-    document.location.href = "/auth";
+    document.location = "/auth";
   };
 
   const submitHeadler = (event) => {
     event.preventDefault();
   };
 
-  const renderInputs = () => {
+  const renderInputs = (event) => {
     return Object.keys(formControls).map((controlName, index) => {
       const control = formControls[controlName];
       return (
@@ -110,23 +103,23 @@ const NewPassord1 = () => {
   };
 
   return (
-    <div className={classes.NewPassword}>
+    <div className={classes.Reset}>
       <h1>Восстановление пароля</h1>
       <form
         onSubmit={(event) => submitHeadler(event)}
-        className={classes.NewPasswordForm}
+        className={classes.ResetForm}
       >
         {renderInputs()}
         <Button
-          type="success"
-          onClick={(event) => newPasswordHeandler(event)}
+          type="error"
+          onClick={(event) => resetHeandler(event)}
           disabled={!isFormValid}
         >
-          Сохранить новый пароль
+          Сбросить пароль
         </Button>
       </form>
     </div>
   );
 };
 
-export default NewPassord1;
+export default Reset;

@@ -1,14 +1,25 @@
 import { useState, React } from "react";
-import { useParams } from "react-router-dom";
-import classes from "./NewPassword.module.css";
+import classes from "./Register.module.css";
 import Button from "../../components/UI/Button/Button.js";
 import Input from "../../components/UI/Input/Input.js";
 import is from "is_js";
-
-const NewPassord1 = () => {
+console;
+const Register = () => {
   const [isFormValid, setFormValid] = useState(false);
   const [
     formControls = {
+      email: {
+        value: "",
+        type: "email",
+        label: "Email",
+        errorMessage: "Введите корректный email",
+        valid: false,
+        touched: false,
+        validation: {
+          required: true,
+          email: true,
+        },
+      },
       password: {
         value: "",
         type: "password",
@@ -21,23 +32,58 @@ const NewPassord1 = () => {
           minLength: 6,
         },
       },
+      name: {
+        value: "",
+        type: "text",
+        label: "Name",
+        errorMessage: "Длинна не иожет быть менее 2 символов",
+        valid: false,
+        touched: false,
+        validation: {
+          required: true,
+          minLength: 2,
+        },
+      },
+      age: {
+        value: "",
+        type: "number",
+        label: "Age",
+        errorMessage: "введите число",
+        valid: false,
+        touched: false,
+        validation: {
+          required: true,
+          minLength: 1,
+        },
+      },
+      adress: {
+        value: "",
+        type: "text",
+        label: "Adress",
+        errorMessage: "Длинна не иожет быть менее 2 символов",
+        valid: false,
+        touched: false,
+        validation: {
+          required: true,
+          minLength: 2,
+        },
+      },
     },
     setformControls,
   ] = useState();
 
-  const params = useParams();
-
-  const newPasswordHeandler = (event) => {
+  const registerHeandler = (event) => {
     event.preventDefault();
-    let token = params.token;
-    const { password } = formControls;
-
+    const { email, password, name, age, adress } = formControls;
     let data = {
-      token: token,
+      email: email.value,
       password: password.value,
+      name: name.value,
+      age: age.value,
+      adress: adress.value,
     };
 
-    fetch("/auth//newPassword", {
+    fetch("/addUser", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -110,23 +156,23 @@ const NewPassord1 = () => {
   };
 
   return (
-    <div className={classes.NewPassword}>
-      <h1>Восстановление пароля</h1>
+    <div className={classes.Register}>
+      <h1>Регистрация</h1>
       <form
         onSubmit={(event) => submitHeadler(event)}
-        className={classes.NewPasswordForm}
+        className={classes.RegisterForm}
       >
         {renderInputs()}
         <Button
           type="success"
-          onClick={(event) => newPasswordHeandler(event)}
+          onClick={(event) => registerHeandler(event)}
           disabled={!isFormValid}
         >
-          Сохранить новый пароль
+          Зарегестрироваться
         </Button>
       </form>
     </div>
   );
 };
 
-export default NewPassord1;
+export default Register;

@@ -1,5 +1,4 @@
 import { useState, React } from "react";
-import { useParams } from "react-router-dom";
 import classes from "./NewPassword.module.css";
 import Button from "../../components/UI/Button/Button.js";
 import Input from "../../components/UI/Input/Input.js";
@@ -25,11 +24,9 @@ const NewPassord1 = () => {
     setformControls,
   ] = useState();
 
-  const params = useParams();
-
   const newPasswordHeandler = (event) => {
     event.preventDefault();
-    let token = params.token;
+    let token = this.props.match.params.token;
     console.log(token);
     const { password } = formControls;
 
@@ -57,8 +54,8 @@ const NewPassord1 = () => {
   };
 
   const renderInputs = () => {
-    return Object.keys(formControls).map((controlName, index) => {
-      const control = formControls[controlName];
+    return Object.keys(this.state.formControls).map((controlName, index) => {
+      const control = this.state.formControls[controlName];
       return (
         <Input
           key={controlName + index}

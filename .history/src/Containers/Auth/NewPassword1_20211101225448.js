@@ -57,8 +57,8 @@ const NewPassord1 = () => {
   };
 
   const renderInputs = () => {
-    return Object.keys(formControls).map((controlName, index) => {
-      const control = formControls[controlName];
+    return Object.keys(this.state.formControls).map((controlName, index) => {
+      const control = this.state.formControls[controlName];
       return (
         <Input
           key={controlName + index}

@@ -1,5 +1,4 @@
 import { useState, React } from "react";
-import { useParams } from "react-router-dom";
 import classes from "./NewPassword.module.css";
 import Button from "../../components/UI/Button/Button.js";
 import Input from "../../components/UI/Input/Input.js";
@@ -25,13 +24,11 @@ const NewPassord1 = () => {
     setformControls,
   ] = useState();
 
-  const params = useParams();
-
   const newPasswordHeandler = (event) => {
     event.preventDefault();
-    let token = params.token;
+    let token = this.props.match.params.token;
     console.log(token);
-    const { password } = formControls;
+    const { password } = this.state.formControls;
 
     let data = {
       token: token,
@@ -57,8 +54,8 @@ const NewPassord1 = () => {
   };
 
   const renderInputs = () => {
-    return Object.keys(formControls).map((controlName, index) => {
-      const control = formControls[controlName];
+    return Object.keys(this.state.formControls).map((controlName, index) => {
+      const control = this.state.formControls[controlName];
       return (
         <Input
           key={controlName + index}
@@ -69,7 +66,7 @@ const NewPassord1 = () => {
           label={control.label}
           shouldValidate={!!control.validation}
           errorMessage={control.errorMessage}
-          onChange={(event) => onChangeHandler(event, controlName)}
+          onChange={(event) => this.onChangeHandler(event, controlName)}
         />
       );
     });
@@ -100,7 +97,7 @@ const NewPassord1 = () => {
 
     control.value = event.target.value;
     control.touched = true;
-    control.valid = validateControl(control.value, control.validation);
+    control.valid = this.validateControl(control.value, control.validation);
 
     fControls[controlName] = control;
 
@@ -117,14 +114,11 @@ const NewPassord1 = () => {
   return (
     <div className={classes.NewPassword}>
       <h1>Восстановление пароля</h1>
-      <form
-        onSubmit={(event) => submitHeadler(event)}
-        className={classes.NewPasswordForm}
-      >
+      <form onSubmit={() => submitHeadler} className={classes.NewPasswordForm}>
         {renderInputs()}
         <Button
           type="success"
-          onClick={(event) => newPasswordHeandler(event)}
+          onClick={() => newPasswordHeandler}
           disabled={!isFormValid}
         >
           Сохранить новый пароль

@@ -3,7 +3,7 @@ import Button from "../../UI/Button/Button";
 import classes from "./Uploader.module.css";
 import axios from "axios";
 
-const Uploader = () => {
+const Uploader1 = () => {
   const [image, setImage] = useState([]);
   const [isAvatarAdded, setIsAvatarAdded] = useState(false);
 
@@ -20,6 +20,12 @@ const Uploader = () => {
         data: fdata,
         headers: { "Content-Type": "multipart/form-data" },
       });
+      // .then(function (response) {
+      //   console.log(response);
+      // })
+      // .catch(function (response) {
+      //   console.log(response);
+      // });
     } catch (error) {
       console.log(error.response.data);
     }
@@ -52,4 +58,4 @@ const Uploader = () => {
   );
 };
 
-export default Uploader;
+export default Uploader1;

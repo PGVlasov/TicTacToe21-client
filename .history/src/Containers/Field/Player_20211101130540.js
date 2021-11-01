@@ -3,6 +3,7 @@ import Button from "../../components/UI/Button/Button.js";
 import Input from "../../components/UI/Input/Input.js";
 import classes from "./Player.module.css";
 import Auxillary from "../../hoc/Auxillary/Auxillary.js";
+//import Select from "../../components/UI/Select/Select.js";
 import Loader from "../../components/UI/Loader/Loader.js";
 import Uploader from "../../components/UI/Uploader/Uploader.js";
 import axios from "axios";
@@ -162,9 +163,8 @@ class Players extends Component {
   renderControls() {
     return Object.keys(this.state.formControls).map((controlName, index) => {
       const control = this.state.formControls[controlName];
-      let key;
       return (
-        <Auxillary key={key}>
+        <Auxillary>
           <Input
             key={controlName + index}
             label={control.label}

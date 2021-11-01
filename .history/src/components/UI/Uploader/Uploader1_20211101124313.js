@@ -3,7 +3,7 @@ import Button from "../../UI/Button/Button";
 import classes from "./Uploader.module.css";
 import axios from "axios";
 
-const Uploader = () => {
+const Uploader1 = () => {
   const [image, setImage] = useState([]);
   const [isAvatarAdded, setIsAvatarAdded] = useState(false);
 
@@ -19,7 +19,13 @@ const Uploader = () => {
         url: "/avatar",
         data: fdata,
         headers: { "Content-Type": "multipart/form-data" },
-      });
+      })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (response) {
+          console.log(response);
+        });
     } catch (error) {
       console.log(error.response.data);
     }
@@ -35,12 +41,18 @@ const Uploader = () => {
   return (
     <div className={classes.Uploader}>
       <input
-        className={classes.Photo}
         type="file"
         nv-file-select=""
         onChange={(event) => onChange(event)}
         disabled={isAvatarAdded}
       />
+      <img
+        id="target"
+        className={classes.Photo}
+        // src={image}
+        alt={"фото не выбрано"}
+      />
+
       <Button
         type="success"
         onClick={(event) => addAvatar(event)}
@@ -52,4 +64,4 @@ const Uploader = () => {
   );
 };
 
-export default Uploader;
+export default Uploader1;

@@ -3,7 +3,7 @@ import Button from "../../UI/Button/Button";
 import classes from "./Uploader.module.css";
 import axios from "axios";
 
-const Uploader = () => {
+const Uploader1 = () => {
   const [image, setImage] = useState([]);
   const [isAvatarAdded, setIsAvatarAdded] = useState(false);
 
@@ -52,4 +52,4 @@ const Uploader = () => {
   );
 };
 
-export default Uploader;
+export default Uploader1;

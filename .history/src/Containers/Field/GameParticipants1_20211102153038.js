@@ -21,7 +21,7 @@ const GameParticipants1 = () => {
 
       .then((res) => {
         if (res.data) {
-          setUsers(res.data);
+          setUsers([...users]);
         }
       });
 
@@ -32,23 +32,22 @@ const GameParticipants1 = () => {
 
       .then((res) => {
         if (res.data) {
-          setEnemies(res.data);
+          setEnemies([...enemies]);
         }
       });
   }, []);
-  let length;
 
+  let lenth = 1;
   if (localStorage.getItem("EnemyID") === null) {
-    length = 1;
   } else {
-    length = 2;
+    lenth = 2;
   }
 
-  if (length < 2) {
+  if (lenth < 2) {
     return (
       <div className={classes.GameParticipants}>
         {users.map((user) => (
-          <div key={user._id}>
+          <div key={Math.random()}>
             <img
               className={classes.avatar}
               src={"/" + user.avatarUrl}

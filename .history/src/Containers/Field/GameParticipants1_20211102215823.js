@@ -21,7 +21,7 @@ const GameParticipants1 = () => {
 
       .then((res) => {
         if (res.data) {
-          setUsers(res.data);
+          setUsers([...users]);
         }
       });
 
@@ -32,12 +32,12 @@ const GameParticipants1 = () => {
 
       .then((res) => {
         if (res.data) {
-          setEnemies(res.data);
+          setEnemies([...enemies]);
         }
       });
   }, []);
   let length;
-
+  console.log("LENGTH", length);
   if (localStorage.getItem("EnemyID") === null) {
     length = 1;
   } else {

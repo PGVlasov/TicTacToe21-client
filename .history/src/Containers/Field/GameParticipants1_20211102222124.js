@@ -37,11 +37,15 @@ const GameParticipants1 = () => {
       });
   }, []);
   let length;
-
+  console.log("LENGTH", length);
   if (localStorage.getItem("EnemyID") === null) {
     length = 1;
+    console.log(users);
+    console.log(enemies);
   } else {
     length = 2;
+    console.log(users);
+    console.log(enemies);
   }
 
   if (length < 2) {

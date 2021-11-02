@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import classes from "./GameParticipants.module.css";
 import { connect } from "react-redux";
 import Button from "../../components/UI/Button/Button.js";
@@ -6,8 +6,12 @@ import axios from "axios";
 import Loader from "../../components/UI/Loader/Loader.js";
 
 const GameParticipants1 = () => {
-  const [users, setUsers] = useState([]);
-  const [enemies, setEnemies] = useState([]);
+  state = {
+    users: [],
+    enemies: [],
+    isSecondConnected: false,
+    isTest: false,
+  };
 
   const refreshGame = () => {
     document.location.reload();
@@ -21,7 +25,7 @@ const GameParticipants1 = () => {
 
       .then((res) => {
         if (res.data) {
-          setUsers(res.data);
+          this.setState({ users: res.data });
         }
       });
 
@@ -32,23 +36,36 @@ const GameParticipants1 = () => {
 
       .then((res) => {
         if (res.data) {
-          setEnemies(res.data);
+          this.setState({ enemies: res.data });
+          //   this.setState({ isSecondConnected: true });
         }
       });
   }, []);
-  let length;
 
+  let lenth = 1;
   if (localStorage.getItem("EnemyID") === null) {
-    length = 1;
+    //   console.log("NULLLL");
+    //   console.log("ENOMY IDDD", localStorage.getItem("EnemyID"));
+    //   console.log("EN", localStorage.getItem("EnemyIDII"));
   } else {
-    length = 2;
+    //   console.log("NULLLL");
+    //   console.log("ENOMY IDDD", localStorage.getItem("EnemyID"));
+    //   console.log("EN", localStorage.getItem("EnemyIDII"));
+    //   console.log("NOT NULL");
+    lenth = 2;
+    // return lenth;
   }
+  //this.setState({ isSecondConnected: true });
+  //this.showParticipants();
 
-  if (length < 2) {
+  // console.log("ENEMY", this.state.enemies);
+  // console.log("state", this.state);
+  // console.log("lenth", lenth);
+  if (lenth < 2) {
     return (
       <div className={classes.GameParticipants}>
-        {users.map((user) => (
-          <div key={user._id}>
+        {this.state.users.map((user) => (
+          <div key={Math.random()}>
             <img
               className={classes.avatar}
               src={"/" + user.avatarUrl}
@@ -60,7 +77,7 @@ const GameParticipants1 = () => {
           </div>
         ))}
         <p className={classes.vs}>VS</p>
-        <Button type="success" onClick={() => refreshGame()}>
+        <Button type="success" onClick={this.refreshGame}>
           проверить готовность противника
         </Button>
         <div>
@@ -69,10 +86,11 @@ const GameParticipants1 = () => {
       </div>
     );
   }
+
   return (
     <div className={classes.GameParticipants}>
-      {users.map((user) => (
-        <div key={user._id}>
+      {this.state.users.map((user) => (
+        <div key={Math.random()}>
           <img
             className={classes.avatar}
             src={"/" + user.avatarUrl}
@@ -85,8 +103,8 @@ const GameParticipants1 = () => {
       ))}
       <p className={classes.vs}>VS</p>
 
-      {enemies.map((enemy) => (
-        <div key={enemy._id}>
+      {this.state.enemies.map((enemy) => (
+        <div key={Math.random()}>
           <img
             className={classes.avatar}
             src={"/" + enemy.avatarUrl}

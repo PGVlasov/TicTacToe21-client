@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { auth } from "../../store/action/auth";
 import { Redirect } from "react-router";
 
-const Auth = (props) => {
+const Auth = () => {
   const [isFormValid, setFormValid] = useState(false);
   const [
     formControls = {
@@ -35,12 +35,18 @@ const Auth = (props) => {
           minLength: 6,
         },
       },
+      setformControls,
     },
-    setformControls,
   ] = useState();
 
-  const loginHeandler = () => {
-    props.auth(formControls.email.value, formControls.password.value);
+  //     isAuthentificated: false,
+  //   };
+
+  const loginHeandler = (event) => {
+    this.props.auth(
+      this.state.formControls.email.value,
+      this.state.formControls.password.value
+    );
   };
 
   const registerHeandler = () => {
@@ -56,8 +62,8 @@ const Auth = (props) => {
   };
 
   const renderInputs = () => {
-    return Object.keys(formControls).map((controlName, index) => {
-      const control = formControls[controlName];
+    return Object.keys(this.state.formControls).map((controlName, index) => {
+      const control = this.state.formControls[controlName];
       return (
         <Input
           key={controlName + index}
@@ -68,7 +74,7 @@ const Auth = (props) => {
           label={control.label}
           shouldValidate={!!control.validation}
           errorMessage={control.errorMessage}
-          onChange={(event) => onChangeHandler(event, controlName)}
+          onChange={(event) => this.onChangeHandler(event, controlName)}
         />
       );
     });
@@ -94,48 +100,47 @@ const Auth = (props) => {
   };
 
   const onChangeHandler = (event, controlName) => {
-    const fControls = { ...formControls };
-    const control = { ...fControls[controlName] };
+    const formControls = { ...this.state.formControls };
+    const control = { ...formControls[controlName] };
 
     control.value = event.target.value;
     control.touched = true;
-    control.valid = validateControl(control.value, control.validation);
+    control.valid = this.validateControl(control.value, control.validation);
 
-    fControls[controlName] = control;
+    formControls[controlName] = control;
 
     let isFormValid = true;
 
-    Object.keys(fControls).forEach((name) => {
-      isFormValid = fControls[name].valid && isFormValid;
+    Object.keys(formControls).forEach((name) => {
+      isFormValid = formControls[name].valid && isFormValid;
     });
 
-    setFormValid(isFormValid);
-    setformControls(fControls);
+    this.setState({
+      formControls,
+      isFormValid,
+    });
   };
 
-  if (props.isAuthenticated) {
+  if (this.props.isAuthenticated) {
     return <Redirect to={"/player"} />;
   }
 
   return (
     <div className={classes.Auth}>
       <h1>Авторизация</h1>
-      <form
-        onSubmit={(event) => submitHeadler(event)}
-        className={classes.AuthForm}
-      >
-        {renderInputs()}
+      <form onSubmit={this.submitHeadler} className={classes.AuthForm}>
+        {this.renderInputs()}
         <Button
           type="success"
-          onClick={(event) => loginHeandler(event)}
-          disabled={!isFormValid}
+          onClick={this.loginHeandler}
+          disabled={!this.state.isFormValid}
         >
           Войти
         </Button>
-        <Button type="primary" onClick={(event) => registerHeandler(event)}>
+        <Button type="primary" onClick={this.registerHeandler}>
           Зарегестрироваться
         </Button>
-        <Button type="error" onClick={(event) => resetHeandler()}>
+        <Button type="error" onClick={this.resetHeandler}>
           Забыли пароль?
         </Button>
       </form>

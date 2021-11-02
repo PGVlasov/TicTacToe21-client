@@ -6,6 +6,7 @@ import Navbar from "./Containers/Navbar/Navbar";
 import About from "./Containers/Field/About";
 import Players from "./Containers/Field/Player";
 import Auth from "./Containers/Auth/Auth";
+import Auth1 from "./Containers/Auth/Auth1";
 import Register from "./Containers/Auth/Register";
 import Reset from "./Containers/Auth/Reset";
 import Training from "./Containers/Training/Training";
@@ -48,7 +49,7 @@ class App extends Component {
             <Route path="/register" component={Register} />
             <Route path="/reset" component={Reset} />
             <Route path="/newPassword/:token" component={NewPassord} />
-            <Route path="/auth" component={Auth} />
+            <Route path="/auth" component={Auth1} />
             <Route path="/" exact component={About} />
           </BrowserRouter>
         </Switch>
@@ -70,3 +71,5 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+// <Redirect to="/" />

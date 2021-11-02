@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { auth } from "../../store/action/auth";
 import { Redirect } from "react-router";
 
-const Auth = (props) => {
+const Auth = () => {
   const [isFormValid, setFormValid] = useState(false);
   const [
     formControls = {
@@ -39,7 +39,10 @@ const Auth = (props) => {
     setformControls,
   ] = useState();
 
-  const loginHeandler = () => {
+  //     isAuthentificated: false,
+  //   };
+
+  const loginHeandler = (props) => {
     props.auth(formControls.email.value, formControls.password.value);
   };
 
@@ -113,7 +116,7 @@ const Auth = (props) => {
     setformControls(fControls);
   };
 
-  if (props.isAuthenticated) {
+  if (this.props.isAuthenticated) {
     return <Redirect to={"/player"} />;
   }
 

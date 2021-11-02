@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { auth } from "../../store/action/auth";
 import { Redirect } from "react-router";
 
-const Auth = (props) => {
+const Auth1 = (props) => {
   const [isFormValid, setFormValid] = useState(false);
   const [
     formControls = {
@@ -39,8 +39,9 @@ const Auth = (props) => {
     setformControls,
   ] = useState();
 
-  const loginHeandler = () => {
-    props.auth(formControls.email.value, formControls.password.value);
+  const loginHeandler = (props) => {
+    console.log("cliced");
+    this.props.auth(formControls.email.value, formControls.password.value);
   };
 
   const registerHeandler = () => {
@@ -113,9 +114,9 @@ const Auth = (props) => {
     setformControls(fControls);
   };
 
-  if (props.isAuthenticated) {
-    return <Redirect to={"/player"} />;
-  }
+  //   if (this.props.isAuthenticated) {
+  //     return <Redirect to={"/player"} />;
+  //   }
 
   return (
     <div className={classes.Auth}>
@@ -154,4 +155,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Auth);
+export default connect(mapStateToProps, mapDispatchToProps)(Auth1);

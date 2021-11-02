@@ -1,4 +1,4 @@
-import { useState, React } from "react";
+import { Component, React } from "react";
 import classes from "./Auth.module.css";
 import Button from "../../components/UI/Button/Button.js";
 import Input from "../../components/UI/Input/Input.js";
@@ -7,10 +7,10 @@ import { connect } from "react-redux";
 import { auth } from "../../store/action/auth";
 import { Redirect } from "react-router";
 
-const Auth = (props) => {
-  const [isFormValid, setFormValid] = useState(false);
-  const [
-    formControls = {
+class Auth extends Component {
+  state = {
+    isFormValid: false,
+    formControls: {
       email: {
         value: "",
         type: "email",
@@ -26,7 +26,7 @@ const Auth = (props) => {
       password: {
         value: "",
         type: "password",
-        label: "Password",
+        label: "Пароль",
         errorMessage: "Длинна пароля не иожет быть менее 6 символов",
         valid: false,
         touched: false,
@@ -36,28 +36,31 @@ const Auth = (props) => {
         },
       },
     },
-    setformControls,
-  ] = useState();
-
-  const loginHeandler = () => {
-    props.auth(formControls.email.value, formControls.password.value);
+    //isAuthentificated: false,
   };
 
-  const registerHeandler = () => {
+  loginHeandler = (event) => {
+    this.props.auth(
+      this.state.formControls.email.value,
+      this.state.formControls.password.value
+    );
+  };
+
+  registerHeandler = () => {
     window.location.href = "/register";
   };
 
-  const resetHeandler = () => {
+  resetHeandler = () => {
     document.location = "/reset";
   };
 
-  const submitHeadler = (event) => {
+  submitHeadler = (event) => {
     event.preventDefault();
   };
 
-  const renderInputs = () => {
-    return Object.keys(formControls).map((controlName, index) => {
-      const control = formControls[controlName];
+  renderInputs() {
+    return Object.keys(this.state.formControls).map((controlName, index) => {
+      const control = this.state.formControls[controlName];
       return (
         <Input
           key={controlName + index}
@@ -68,13 +71,13 @@ const Auth = (props) => {
           label={control.label}
           shouldValidate={!!control.validation}
           errorMessage={control.errorMessage}
-          onChange={(event) => onChangeHandler(event, controlName)}
+          onChange={(event) => this.onChangeHandler(event, controlName)}
         />
       );
     });
-  };
+  }
 
-  const validateControl = (value, validation) => {
+  validateControl(value, validation) {
     if (!validation) {
       return true;
     }
@@ -91,57 +94,58 @@ const Auth = (props) => {
     }
 
     return isValid;
-  };
+  }
 
-  const onChangeHandler = (event, controlName) => {
-    const fControls = { ...formControls };
-    const control = { ...fControls[controlName] };
+  onChangeHandler = (event, controlName) => {
+    const formControls = { ...this.state.formControls };
+    const control = { ...formControls[controlName] };
 
     control.value = event.target.value;
     control.touched = true;
-    control.valid = validateControl(control.value, control.validation);
+    control.valid = this.validateControl(control.value, control.validation);
 
-    fControls[controlName] = control;
+    formControls[controlName] = control;
 
     let isFormValid = true;
 
-    Object.keys(fControls).forEach((name) => {
-      isFormValid = fControls[name].valid && isFormValid;
+    Object.keys(formControls).forEach((name) => {
+      isFormValid = formControls[name].valid && isFormValid;
     });
 
-    setFormValid(isFormValid);
-    setformControls(fControls);
+    this.setState({
+      formControls,
+      isFormValid,
+    });
   };
 
-  if (props.isAuthenticated) {
-    return <Redirect to={"/player"} />;
-  }
+  render() {
+    if (this.props.isAuthenticated) {
+      return <Redirect to={"/player"} />;
+    }
 
-  return (
-    <div className={classes.Auth}>
-      <h1>Авторизация</h1>
-      <form
-        onSubmit={(event) => submitHeadler(event)}
-        className={classes.AuthForm}
-      >
-        {renderInputs()}
-        <Button
-          type="success"
-          onClick={(event) => loginHeandler(event)}
-          disabled={!isFormValid}
-        >
-          Войти
-        </Button>
-        <Button type="primary" onClick={(event) => registerHeandler(event)}>
-          Зарегестрироваться
-        </Button>
-        <Button type="error" onClick={(event) => resetHeandler()}>
-          Забыли пароль?
-        </Button>
-      </form>
-    </div>
-  );
-};
+    return (
+      <div className={classes.Auth}>
+        <h1>Авторизация</h1>
+        <form onSubmit={this.submitHeadler} className={classes.AuthForm}>
+          {this.renderInputs()}
+          <Button
+            type="success"
+            onClick={this.loginHeandler}
+            disabled={!this.state.isFormValid}
+          >
+            Войти
+          </Button>
+          <Button type="primary" onClick={this.registerHeandler}>
+            Зарегестрироваться
+          </Button>
+          <Button type="error" onClick={this.resetHeandler}>
+            Забыли пароль?
+          </Button>
+        </form>
+      </div>
+    );
+  }
+}
 function mapStateToProps(state) {
   return {
     isAuthentificated: !!state.token,

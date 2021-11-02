@@ -3,9 +3,9 @@ import classes from "./GameList.module.css";
 import Button from "../../components/UI/Button/Button.js";
 import Links from "../../components/UI/List/Links.js";
 import Rating from "./Rating";
-import Rating1 from "./Rating1";
 
 let links = [];
+let ratingList = [];
 
 const GameList = () => {
   const createGame = () => {
@@ -50,7 +50,7 @@ const GameList = () => {
         <div className={classes.PlayersRange}>
           <h3>Рейтинг Игроков</h3>
           <hr></hr>
-          <Rating1 />
+          <Rating ratingList={ratingList} />
         </div>
       </div>
     </div>

@@ -3,7 +3,7 @@ import classes from "./GameList.module.css";
 import Button from "../../components/UI/Button/Button.js";
 import Links from "../../components/UI/List/Links.js";
 import Rating from "./Rating";
-import Rating1 from "./Rating1";
+import Rating1 from "./Rating";
 
 let links = [];
 

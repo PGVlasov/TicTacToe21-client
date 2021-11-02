@@ -9,7 +9,7 @@ const Rating1 = () => {
     try {
       fetch("/users/rating")
         .then((res) => res.json())
-        .then((users) => setUsers(users));
+        .then((users) => setUsers({ users }));
     } catch (e) {
       console.log(e);
     }

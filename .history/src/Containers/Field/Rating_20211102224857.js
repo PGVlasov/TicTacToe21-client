@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import classes from "./Rating.module.css";
 import Button from "../../components/UI/Button/Button";
 
-const Rating1 = () => {
+const Rating = () => {
   const [users, setUsers] = useState([]);
 
   const refreshRating = async () => {
     try {
       fetch("/users/rating")
         .then((res) => res.json())
-        .then((users) => setUsers(users));
+        .then((users) => setUsers({ users }));
     } catch (e) {
       console.log(e);
     }
@@ -23,7 +23,7 @@ const Rating1 = () => {
       <hr />
       <p>Здесь будет Рейтинг, а пока просто список :)</p>
       {users.map((user) => (
-        <div key={Math.random()} className={classes.ul}>
+        <div key={user._id} className={classes.ul}>
           <img
             className={classes.avatar}
             src={user.avatarUrl}
@@ -41,4 +41,4 @@ const Rating1 = () => {
   );
 };
 
-export default Rating1;
+export default Rating;

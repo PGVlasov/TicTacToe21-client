@@ -50,7 +50,7 @@ const GameList = () => {
         <div className={classes.PlayersRange}>
           <h3>Рейтинг Игроков</h3>
           <hr></hr>
-          <Rating1 />
+          <Rating />
         </div>
       </div>
     </div>

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import "./Field1.css";
 import GameParticipants from "./GameParticipants";
 import { useParams } from "react-router-dom";
-import * as ws from "./Websocket";
+import * as ws from "./websocket";
 import { move, alertWinner } from "./Game-core";
 import { checkWinner } from "./CheckWinner.js";
 

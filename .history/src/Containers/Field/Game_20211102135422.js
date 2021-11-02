@@ -5,7 +5,7 @@ import GameParticipants from "./GameParticipants";
 import { useParams } from "react-router-dom";
 import * as ws from "./websocket";
 import { move, alertWinner } from "./Game-core";
-import { checkWinner } from "./CheckWinner.js";
+import { checkWinner } from "./checkWinner.js";
 
 function getIsSecondary() {
   return false;

@@ -7,7 +7,7 @@ import Rating from "./Rating";
 let links = [];
 let ratingList = [];
 
-const GameList = () => {
+const GameList1 = () => {
   const createGame = () => {
     try {
       links = {
@@ -56,5 +56,3 @@ const GameList = () => {
     </div>
   );
 };
-
-export default GameList;

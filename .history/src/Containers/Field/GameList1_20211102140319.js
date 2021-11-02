@@ -7,7 +7,7 @@ import Rating from "./Rating";
 let links = [];
 let ratingList = [];
 
-const GameList = () => {
+const GameList = ()=> {
   const createGame = () => {
     try {
       links = {
@@ -31,30 +31,28 @@ const GameList = () => {
   useEffect(() => {
     localStorage.removeItem("EnemyID");
     localStorage.removeItem("EnemyIDII");
-  }, []);
-
-  return (
-    <div className={classes.GameList}>
-      <h1>Создайте игру или присоеденитесь к существующей</h1>
-      <div className={classes.Container}>
-        <div className={classes.Create}>
-          <Button type="success" onClick={() => createGame()}>
-            Создайть игру
-          </Button>
-        </div>
-        <div className={classes.LinksList}>
-          <h3>Присоеденитесь к игре</h3>
-          <hr />
-          <Links links={links} />
-        </div>
-        <div className={classes.PlayersRange}>
-          <h3>Рейтинг Игроков</h3>
-          <hr></hr>
-          <Rating ratingList={ratingList} />
+  }, [])
+};
+    return (
+      <div className={classes.GameList}>
+        <h1>Создайте игру или присоеденитесь к существующей</h1>
+        <div className={classes.Container}>
+          <div className={classes.Create}>
+            <Button type="success" onClick={()=>createGame()}>
+              Создайть игру
+            </Button>
+          </div>
+          <div className={classes.LinksList}>
+            <h3>Присоеденитесь к игре</h3>
+            <hr />
+            <Links links={links} />
+          </div>
+          <div className={classes.PlayersRange}>
+            <h3>Рейтинг Игроков</h3>
+            <hr></hr>
+            <Rating ratingList={ratingList} />
+          </div>
         </div>
       </div>
-    </div>
-  );
-};
-
-export default GameList;
+    );
+  }

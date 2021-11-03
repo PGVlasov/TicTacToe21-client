@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import classes from "./navbar.module.css";
 import { connect } from "react-redux";

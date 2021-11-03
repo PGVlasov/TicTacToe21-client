@@ -18,7 +18,6 @@ import { autoLogin } from "./store/action/auth";
 const App = (props) => {
   useEffect(() => {
     props.autoLogin();
-    // eslint-disable-next-line
   }, []);
 
   if (props.isAuthenticated) {

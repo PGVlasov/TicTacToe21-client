@@ -23,6 +23,8 @@ const store = createStore(
   authReducer,
   composeEnhancers(applyMiddleware(logerMidleware, reduxThunk))
 );
+// rootReducer,
+// composeEnhancers(applyMiddleware(thunk))
 
 const app = (
   <Provider store={store}>

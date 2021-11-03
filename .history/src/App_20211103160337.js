@@ -4,7 +4,8 @@ import Game from "./Containers/Field/Game";
 import { Header } from "./Containers/Header/Header";
 import Navbar from "./Containers/Navbar/Navbar";
 import About from "./Containers/Field/About";
-import Player from "./Containers/Field/Player";
+import Players from "./Containers/Field/Player";
+import Player from "./Containers/Field/Player1";
 import Auth from "./Containers/Auth/Auth";
 import Register from "./Containers/Auth/Register";
 import Reset from "./Containers/Auth/Reset";
@@ -29,7 +30,7 @@ class App extends Component {
             <Route path="/gameList" exact component={GameList} />
             <Route path="/game/:id" component={Game} />
             <Route path="/training" component={Training} />
-            <Route path="/player" component={Player} />
+            <Route path="/player" component={Players} />
             <Route path="/register" component={Register} />
             <Route path="/reset" component={Reset} />
             <Route path="/newPassword/:token" component={NewPassord} />

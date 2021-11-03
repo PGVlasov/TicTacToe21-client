@@ -2,12 +2,15 @@ import React, { useState, useEffect } from "react";
 import Button from "../../components/UI/Button/Button.js";
 import Input from "../../components/UI/Input/Input.js";
 import classes from "./Player.module.css";
+import Auxillary from "../../hoc/Auxillary/Auxillary.js";
 import Uploader from "../../components/UI/Uploader/Uploader.js";
 import axios from "axios";
+import { validateForm } from "../../form/formFramework";
 import { connect } from "react-redux";
 import is from "is_js";
 
 let range;
+
 const Player = () => {
   const [users, setUsers] = useState([]);
   const [player, setPlayer] = useState([]);
@@ -67,7 +70,6 @@ const Player = () => {
     setFormValid(false);
     setformControls(formControls);
     setPlayer(plr);
-    document.location.reload();
   };
 
   const submitHandler = (event) => {
@@ -112,11 +114,11 @@ const Player = () => {
     setFormValid(false);
     setformControls(formControls);
     setPlayer(plr);
-    document.location.reload();
   };
 
   const deleteUser = (event) => {
     event.preventDefault();
+    console.log(localStorage.getItem("localID"));
     let data = {
       id: localStorage.getItem("localID"),
     };
@@ -183,11 +185,11 @@ const Player = () => {
     return isValid;
   };
 
-  const onChangeHandler = (event, controlName) => {
+  const onChangeHandler = (value, controlName) => {
     const fControls = { ...formControls };
     const control = { ...fControls[controlName] };
 
-    control.value = event.target.value;
+    control.value = value;
     control.touched = true;
     control.valid = validateControl(control.value, control.validation);
 
@@ -200,7 +202,7 @@ const Player = () => {
     });
 
     setFormValid(isFormValid);
-    setformControls(fControls);
+    setformControls(validateForm(fControls));
   };
 
   if (editButtomClicked) {
@@ -245,8 +247,6 @@ const Player = () => {
                   >
                     Сохранить изменения информации
                   </Button>
-                  <hr />
-                  <p className={classes.delete}>Опасная зона</p>
                   <Button type="error" onClick={(event) => deleteUser(event)}>
                     Удалить Аккаунт
                   </Button>

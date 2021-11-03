@@ -7,6 +7,7 @@ export function connect(id, isSecondary, cb) {
 }
 
 export function onOpen(roomId, isSecondary) {
+  console.log("соедениние установлено");
   send("CONNECTED", {
     clientId: localStorage.getItem("localID"),
     roomId,

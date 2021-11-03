@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import Button from "../../components/UI/Button/Button.js";
 import Input from "../../components/UI/Input/Input.js";
 import classes from "./Player.module.css";
+import Auxillary from "../../hoc/Auxillary/Auxillary.js";
 import Uploader from "../../components/UI/Uploader/Uploader.js";
 import axios from "axios";
+import { validateForm } from "../../form/formFramework";
 import { connect } from "react-redux";
-import is from "is_js";
 
 let range;
+
 const Player = () => {
   const [users, setUsers] = useState([]);
   const [player, setPlayer] = useState([]);
@@ -62,12 +64,14 @@ const Player = () => {
 
   const canсelEditUser = (event) => {
     event.preventDefault();
-    const plr = player.concat();
-    setEditButtomClicked(false);
-    setFormValid(false);
-    setformControls(formControls);
-    setPlayer(plr);
-    document.location.reload();
+    //const player = player.concat();
+    setEditButtomClicked(true);
+    // this.setState({
+    //   player,
+    //   isFormValid: false,
+    //   formControls: this.state.formControls,
+    //   editButtomClicked: false,
+    // });
   };
 
   const submitHandler = (event) => {
@@ -80,8 +84,8 @@ const Player = () => {
   };
   const saveUser = (event) => {
     event.preventDefault();
-    const plr = player.concat();
-    const index = plr.length + 1;
+    const pl = player.concat();
+    const index = pl.length + 1;
 
     const { name, age, adress } = formControls;
 
@@ -92,7 +96,7 @@ const Player = () => {
       adress: adress.value,
     };
 
-    plr.push(playerItem);
+    player.push(playerItem);
 
     let data = {
       name: name.value,
@@ -108,15 +112,18 @@ const Player = () => {
       },
       body: JSON.stringify(data),
     });
-    setEditButtomClicked(false);
-    setFormValid(false);
-    setformControls(formControls);
-    setPlayer(plr);
-    document.location.reload();
+
+    this.setState({
+      player,
+      isFormValid: false,
+      formControls: this.state.formControls,
+      editButtomClicked: false,
+    });
   };
 
   const deleteUser = (event) => {
     event.preventDefault();
+    console.log(localStorage.getItem("localID"));
     let data = {
       id: localStorage.getItem("localID"),
     };
@@ -145,21 +152,24 @@ const Player = () => {
       });
   }, []);
 
-  const renderInputs = () => {
+  const renderControls = () => {
     return Object.keys(formControls).map((controlName, index) => {
       const control = formControls[controlName];
+      let key;
       return (
+        // <Auxillary key={key}>
         <Input
           key={controlName + index}
+          label={control.label}
           type={control.type}
           value={control.value}
           valid={control.valid}
           touched={control.touched}
-          label={control.label}
           shouldValidate={!!control.validation}
           errorMessage={control.errorMessage}
           onChange={(event) => onChangeHandler(event, controlName)}
         />
+        // </Auxillary>
       );
     });
   };
@@ -173,9 +183,6 @@ const Player = () => {
     if (validation.required) {
       isValid = value.trim() !== "" && isValid;
     }
-    if (validation.email) {
-      isValid = is.email(value) && isValid;
-    }
     if (validation.minLength) {
       isValid = value.length >= validation.minLength && isValid;
     }
@@ -183,11 +190,11 @@ const Player = () => {
     return isValid;
   };
 
-  const onChangeHandler = (event, controlName) => {
+  const onChangeHandler = (value, controlName) => {
     const fControls = { ...formControls };
     const control = { ...fControls[controlName] };
 
-    control.value = event.target.value;
+    control.value = value;
     control.touched = true;
     control.valid = validateControl(control.value, control.validation);
 
@@ -200,7 +207,7 @@ const Player = () => {
     });
 
     setFormValid(isFormValid);
-    setformControls(fControls);
+    setformControls(validateForm(fControls));
   };
 
   if (editButtomClicked) {
@@ -237,7 +244,7 @@ const Player = () => {
                   >
                     Закрыть без изменений
                   </Button>
-                  {renderInputs()}
+                  {renderControls()}
                   <Button
                     type="success"
                     onClick={(event) => saveUser(event)}
@@ -245,8 +252,6 @@ const Player = () => {
                   >
                     Сохранить изменения информации
                   </Button>
-                  <hr />
-                  <p className={classes.delete}>Опасная зона</p>
                   <Button type="error" onClick={(event) => deleteUser(event)}>
                     Удалить Аккаунт
                   </Button>

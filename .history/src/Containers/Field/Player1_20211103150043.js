@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import is from "is_js";
 
 let range;
+
 const Player = () => {
   const [users, setUsers] = useState([]);
   const [player, setPlayer] = useState([]);
@@ -67,7 +68,6 @@ const Player = () => {
     setFormValid(false);
     setformControls(formControls);
     setPlayer(plr);
-    document.location.reload();
   };
 
   const submitHandler = (event) => {
@@ -112,11 +112,11 @@ const Player = () => {
     setFormValid(false);
     setformControls(formControls);
     setPlayer(plr);
-    document.location.reload();
   };
 
   const deleteUser = (event) => {
     event.preventDefault();
+    console.log(localStorage.getItem("localID"));
     let data = {
       id: localStorage.getItem("localID"),
     };
@@ -246,10 +246,11 @@ const Player = () => {
                     Сохранить изменения информации
                   </Button>
                   <hr />
-                  <p className={classes.delete}>Опасная зона</p>
-                  <Button type="error" onClick={(event) => deleteUser(event)}>
-                    Удалить Аккаунт
-                  </Button>
+                  <div>
+                    <Button type="error" onClick={(event) => deleteUser(event)}>
+                      Удалить Аккаунт
+                    </Button>
+                  </div>
                 </form>
               </div>
             </div>

@@ -23,8 +23,8 @@ go to localhost:3000
 
 To run the app in development mode you need webpack-dev-server to be installed globally (npm install -g webpack-dev-server)
 
-You also should clone express-server reposetory from: https://github.com/PGVlasov/tictactoe21
+You also should clone express-server reposetory from: https://github.com/PGVlasov/tictactoe-21-server
 
-And websocket-server reposetory from: https://github.com/PGVlasov/tictactoe-21-server
+And websocket-server reposetory from: https://github.com/PGVlasov/tictactoe-21-WS-server
 
 npm run dev

@@ -248,7 +248,7 @@ const Player = () => {
                   <hr />
                   <p className={classes.delete}>Опасная зона</p>
                   <p className={classes.danger}>
-                    Внимание! При нажатии кнопки ниже, вы полностью удалите свой
+                    Внимание при нажатии кнопки ниже вы полностью удалите свой
                     аккаунт со всеми данными
                   </p>
                   <Button type="error" onClick={(event) => deleteUser(event)}>

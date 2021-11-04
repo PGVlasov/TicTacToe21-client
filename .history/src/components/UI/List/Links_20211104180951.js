@@ -66,7 +66,7 @@ const Links = () => {
                 onClick={(event) => joinGame(event)}
                 id={link._id}
               >
-                {"Новая Игра   //"}
+                {"Новая Игра"}
               </a>
 
               <span className={classes.span}>

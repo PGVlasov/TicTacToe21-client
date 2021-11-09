@@ -11,7 +11,9 @@ const GameList = () => {
     try {
       links = {
         creator: localStorage.getItem("localID"),
-        title: `http://localhost:3000/game/:${(+new Date()).toString(16)}`,
+        title: `http://193.168.48.104:3000/game/:$${(+new Date()).toString(
+          16
+        )}`,
         cliced: 0,
       };
 

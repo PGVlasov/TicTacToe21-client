@@ -1,7 +1,7 @@
 let ws;
 
 export function connect(id, isSecondary, cb) {
-  ws = new WebSocket("ws://localhost:5000/");
+  ws = new WebSocket("ws://193.168.48.104:5000/");
   ws.onopen = () => onOpen(id, isSecondary);
   ws.onmessage = cb;
 }
